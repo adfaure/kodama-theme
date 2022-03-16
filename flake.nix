@@ -66,7 +66,7 @@
             npx tailwindcss -i styles/styles.css -o static/styles/styles.css
           '';
 
-          base-url = "https://adrien-faure.fr";
+          base-url = "https://adfaure.github.io/kodama-theme/";
           installPhase = ''
             zola build -o $out --base-url ${base-url}
           '';
