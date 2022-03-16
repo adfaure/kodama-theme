@@ -25,6 +25,12 @@ This theme use some extra configuration, that can be set in the extra section of
 title = "Website title"
 
 [extra]
+
+# Image of your avatar displayed on the landing page
+avatar = "static/img/avatar.jpg"
+# Image of the favicon
+favicon = "static/img/avatar.jpg"
+
 # Your email address showed in the contact section
 email = "kodama[at]domain.com"
 

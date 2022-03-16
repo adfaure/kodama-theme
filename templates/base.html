@@ -11,7 +11,7 @@
 
 <head>
 
-  {% set favicon = resize_image(path="static/img/kodama.png", format="png", width=32, height=32) %}
+  {% set favicon = resize_image(path=config.extra.favicon, format="png", width=32, height=32) %}
   <link rel="shortcut icon" href="{{ favicon.url }}" type="image/png">
   <link rel="icon" href="{{ favicon.url }}" type="image/png">
 

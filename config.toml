@@ -23,6 +23,10 @@ highlight_code = true
 highlight_theme = "base16-ocean-dark"
 
 [extra]
+
+avatar = "static/img/avatar.jpg"
+favicon = "static/img/avatar.jpg"
+
 # Enter your email
 email = "kodama[at]domain.com"
 
