@@ -1,5 +1,7 @@
 name: Build and publish theme
-on: [ push ]
+on:
+  push:
+  pull_request:
 
 jobs:
   Nix-Flake-Build:
@@ -17,4 +19,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@4.1.1
       with:
         branch: gh-pages
-        folder: result
+        folder: ./result
