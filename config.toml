@@ -28,10 +28,8 @@ email = "kodama[at]domain.com"
 
 contact_in_index = true
 
-# The item menu showed in the top bar.
+# Additional menu items
 # `Name` is what it is displayed, `path` is the url
 menu_items = [
-  { path = "blog", name = "Blog" },
-  { path = "publications", name = "Research"},
   { path = "#contacts", name = "Contact" },
 ]

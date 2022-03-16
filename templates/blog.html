@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block nav %}
-  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.extra.name) }}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
 {% endblock nav %}
 
 {% block content %}
 <div class="container max-w-3xl mx-auto px-4">
 
   <div class="font-sans py-8">
-    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">{{ section.extra.name }}</h1>
+    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">{{ section.title }}</h1>
   </div>
 
   <ul>
