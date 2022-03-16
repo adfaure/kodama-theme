@@ -23,7 +23,7 @@ interests = [
   year = 2016
 
 [[extra.education.courses]]
-  course = "Firt degree"
+  course = "First degree"
   institution = "My academy"
   year = 2015
 

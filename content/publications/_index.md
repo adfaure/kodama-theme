@@ -14,4 +14,4 @@ extra.hidden_nav = false
 
 ## Topic of interest
 
-My research activities focuses on rainbow.
+My research activities focuses on rainbows.
