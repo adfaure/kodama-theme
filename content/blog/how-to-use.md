@@ -32,8 +32,10 @@ and set in the `config.toml` the variable `theme` to `kodama-theme`.
 
 ### Generate the CSS
 
-[Tailwindcss](https://tailwindcss.com/) is a framework that parses your html files, and generate the minimal CSS required. 
+[Tailwindcss](https://tailwindcss.com/) is a framework that parses your html files, and generate the minimal CSS required.
 This theme depends on this framework.
+
+The theme comes with the precompiled style files (`static/styles/styles.css`). However, if you wish to change the style, or modify the template htlm, you might need to recompile your styles.
 
 The most simple way, is to follow the [installation page of tailwindcss](https://tailwindcss.com/docs/installation).
 
@@ -51,7 +53,7 @@ module.exports = {
 };
 ```
 
-To generate the CSS file, you can use the following command:
+Create a file `styles/styles.css`, and use the following command to generate the final CSS file:
 
 ```
 npx tailwindcss -i styles/styles.css -o static/styles/styles.css
