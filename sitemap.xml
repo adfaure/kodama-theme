@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://adrien-faure.fr/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/</loc>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/blog/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/blog/</loc>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/blog/hello-word/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/blog/hello-word/</loc>
         <lastmod>2021-03-16</lastmod>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/blog/how-to-use/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/blog/how-to-use/</loc>
         <lastmod>2022-03-16</lastmod>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/contacts/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/contacts/</loc>
         <lastmod>2020-07-09</lastmod>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/publications/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/publications/</loc>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/publications/paper1/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/publications/paper1/</loc>
         <lastmod>2021-05-18</lastmod>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/publications/paper2/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/publications/paper2/</loc>
         <lastmod>2020-05-18</lastmod>
     </url>
     <url>
-        <loc>https://adrien-faure.fr/publications/thesis/</loc>
+        <loc>https://adfaure.github.io/kodama-theme/publications/thesis/</loc>
         <lastmod>2020-12-02</lastmod>
     </url>
 </urlset>
