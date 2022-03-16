@@ -16,6 +16,51 @@ First lets introduce some technical details:
 - The CSS is built with [tailwindcss](https://tailwindcss.com/).
     - The blog articles are themed with [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) theme.
 
+
+## Getting started
+
+The best way to get started is to follow the official [zola tutorial](https://www.getzola.org/documentation/getting-started/overview/).
+
+This theme can be installed as any other theme.
+
+```
+mkdir themes
+cd themes & git clone https://github.com/adfaure/kodama-theme
+```
+
+and set in the `config.toml` the variable `theme` to `kodama-theme`.
+
+### Generate the CSS
+
+[Tailwindcss](https://tailwindcss.com/) is a framework that parses your html files, and generate the minimal CSS required. 
+This theme depends on this framework.
+
+The most simple way, is to follow the [installation page of tailwindcss](https://tailwindcss.com/docs/installation).
+
+At the end, you should have tailwindcss installed, and I advise to use the following tailwind configuration:
+
+```js
+# tailwind.config.js
+module.exports = {
+  content: ["./templates/**/*.html", "./themes/**/*.html",  "./themes/**/*.html"],
+  theme: {},
+  variants: {},
+  plugins: [
+      require('@tailwindcss/typography'),
+  ],
+};
+```
+
+To generate the CSS file, you can use the following command:
+
+```
+npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+```
+
+The resulting file `static/styles/styles.css` is loaded in the html.
+
+*Note that, for the moment the generation of the css is not automated. As a result, it is necessary to re-run this command when changes are made with the styling.*
+
 ## Configuration
 
 This theme use some extra configuration, that can be set in the extra section of your `config.toml`.
@@ -23,6 +68,9 @@ This theme use some extra configuration, that can be set in the extra section of
 ```toml
 # Title displayed in the index page
 title = "Website title"
+
+# Use this theme
+theme = "kodama-theme"
 
 [extra]
 
