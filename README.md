@@ -1,5 +1,6 @@
 # Kodama
 
+![./screenshot.png]
 ## Summary
 
 This theme is greatly inspired from hugo academic theme.
