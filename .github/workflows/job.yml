@@ -1,7 +1,5 @@
 name: Build and publish theme
-on:
-  push:
-  pull_request:
+on: [push]
 
 jobs:
   Nix-Flake-Build:
