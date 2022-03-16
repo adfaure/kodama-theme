@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  
+  <link rel="shortcut icon" href="https:&#x2F;&#x2F;adrien-faure.fr&#x2F;processed_images&#x2F;5e65d79efc4c711e00.png" type="image/png">
+  <link rel="icon" href="https:&#x2F;&#x2F;adrien-faure.fr&#x2F;processed_images&#x2F;5e65d79efc4c711e00.png" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <meta charset="utf-8">
+    
+<!-- CSS -->
+<link rel="stylesheet" href="https://adrien-faure.fr/styles/styles.css" />
+
+    <title>Website title</title>
+    </head>
+
+<body class="bg-white">
+  <!-- Top nav bar -->
+  
+  
+  
+<nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
+  <div id="progress" class="top-0"></div>
+  <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
+  <div class="w-full max-w-4xl mx-auto flex sm:flex-nowrap flex-wrap items-center justify-between mt-0 py-2">
+    <div class="pl-4">
+      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="https:&#x2F;&#x2F;adrien-faure.fr">
+        Website title
+      </a>
+    </div>
+
+    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
+      <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
+          <li class="mr-3 text-sm">
+              <a href=https://adrien-faure.fr/blog class="inline-block py-2 px-4 text-sky-600 font-bold no-underline" href="#">
+                Blog
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+              <a href=https://adrien-faure.fr/publications class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+                Research
+              </a>
+            </li>
+            <li class="mr-3 text-sm">
+            <a href=https://adrien-faure.fr/#contacts class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="#">
+              Contact
+            </a>
+          </li>
+          </ul>
+    </div>
+  </div>
+
+</nav>
+
+<!-- Container -->
+  
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="pt-8 flex flex">
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">How to use this theme</h1>
+    <p class="text-sm md:text-base font-normal text-gray-600 py-2">Published 2022-03-16</p>
+  </div>
+  <hr class="border-b-1 border-gray-400 mb-8">
+  
+  <article class="prose prose-indigo prose max-w-3xl">
+    <h2 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">🔗</a></h2>
+<p>This theme is greatly inspired from hugo academic theme.</p>
+<p>First lets introduce some technical details:</p>
+<ul>
+<li>It relies on <a href="https://getzola.com">zola</a>.</li>
+<li>It has no javascript.</li>
+<li>The CSS is built with <a href="https://tailwindcss.com/">tailwindcss</a>.
+<ul>
+<li>The blog articles are themed with <a href="https://tailwindcss.com/docs/typography-plugin">@tailwindcss/typography</a> theme.</li>
+</ul>
+</li>
+</ul>
+<h2 id="getting-started">Getting started<a class="zola-anchor" href="#getting-started" aria-label="Anchor link for: getting-started">🔗</a></h2>
+<p>The best way to get started is to follow the official <a href="https://www.getzola.org/documentation/getting-started/overview/">zola tutorial</a>.</p>
+<p>This theme can be installed as any other theme.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>mkdir themes
+</span><span>cd themes &amp; git clone https://github.com/adfaure/kodama-theme
+</span></code></pre>
+<p>and set in the <code>config.toml</code> the variable <code>theme</code> to <code>kodama-theme</code>.</p>
+<h3 id="generate-the-css">Generate the CSS<a class="zola-anchor" href="#generate-the-css" aria-label="Anchor link for: generate-the-css">🔗</a></h3>
+<p><a href="https://tailwindcss.com/">Tailwindcss</a> is a framework that parses your html files, and generate the minimal CSS required.
+This theme depends on this framework.</p>
+<p>The theme comes with the precompiled style files (<code>static/styles/styles.css</code>). However, if you wish to change the style, or modify the template htlm, you might need to recompile your styles.</p>
+<p>The most simple way, is to follow the <a href="https://tailwindcss.com/docs/installation">installation page of tailwindcss</a>.</p>
+<p>At the end, you should have tailwindcss installed, and I advise to use the following tailwind configuration:</p>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span># </span><span style="color:#bf616a;">tailwind</span><span>.</span><span style="color:#bf616a;">config</span><span>.</span><span style="color:#bf616a;">js
+</span><span>module.exports = {
+</span><span>  content: [&quot;</span><span style="color:#a3be8c;">./templates/**/*.html</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">./themes/**/*.html</span><span>&quot;,  &quot;</span><span style="color:#a3be8c;">./themes/**/*.html</span><span>&quot;],
+</span><span>  theme: {},
+</span><span>  variants: {},
+</span><span>  plugins: [
+</span><span>      </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">@tailwindcss/typography</span><span>&#39;),
+</span><span>  ],
+</span><span>};
+</span></code></pre>
+<p>Create a file <code>styles/styles.css</code>, and use the following command to generate the final CSS file:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+</span></code></pre>
+<p>The resulting file <code>static/styles/styles.css</code> is loaded in the html.</p>
+<p><em>Note that, for the moment the generation of the css is not automated. As a result, it is necessary to re-run this command when changes are made with the styling.</em></p>
+<h2 id="configuration">Configuration<a class="zola-anchor" href="#configuration" aria-label="Anchor link for: configuration">🔗</a></h2>
+<p>This theme use some extra configuration, that can be set in the extra section of your <code>config.toml</code>.</p>
+<pre data-lang="toml" style="background-color:#2b303b;color:#c0c5ce;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#65737e;"># Title displayed in the index page
+</span><span style="color:#bf616a;">title </span><span>= &quot;</span><span style="color:#a3be8c;">Website title</span><span>&quot;
+</span><span>
+</span><span style="color:#65737e;"># Use this theme
+</span><span style="color:#bf616a;">theme </span><span>= &quot;</span><span style="color:#a3be8c;">kodama-theme</span><span>&quot;
+</span><span>
+</span><span>[extra]
+</span><span>
+</span><span style="color:#65737e;"># Image of your avatar displayed on the landing page
+</span><span style="color:#bf616a;">avatar </span><span>= &quot;</span><span style="color:#a3be8c;">static/img/avatar.jpg</span><span>&quot;
+</span><span style="color:#65737e;"># Image of the favicon
+</span><span style="color:#bf616a;">favicon </span><span>= &quot;</span><span style="color:#a3be8c;">static/img/avatar.jpg</span><span>&quot;
+</span><span>
+</span><span style="color:#65737e;"># Your email address showed in the contact section
+</span><span style="color:#bf616a;">email </span><span>= &quot;</span><span style="color:#a3be8c;">kodama[at]domain.com</span><span>&quot;
+</span><span>
+</span><span style="color:#65737e;"># If you don&#39;t want to show your contact information in the index
+</span><span style="color:#bf616a;">contact_in_index </span><span>= </span><span style="color:#d08770;">true
+</span><span>
+</span><span style="color:#65737e;"># Additional menu items
+</span><span style="color:#65737e;"># `Name` is what it is displayed, `path` is the url
+</span><span style="color:#bf616a;">menu_items </span><span>= [
+</span><span>  { </span><span style="color:#bf616a;">path </span><span>= &quot;</span><span style="color:#a3be8c;">#contacts</span><span>&quot;, </span><span style="color:#bf616a;">name </span><span>= &quot;</span><span style="color:#a3be8c;">Contact</span><span>&quot; },
+</span><span>]
+</span></code></pre>
+<h2 id="index-page">Index page<a class="zola-anchor" href="#index-page" aria-label="Anchor link for: index-page">🔗</a></h2>
+<p>The information needed to build the index page are located in the page <a href="https://www.getzola.org/documentation/content/page/#front-matter">front matter</a> of root index file (e.g <code>content/_index.md</code>).</p>
+<p>The available configuration options are:</p>
+<pre data-lang="toml" style="background-color:#2b303b;color:#c0c5ce;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#65737e;"># Insert zola front matter variable such as date etc
+</span><span>
+</span><span>[extra]
+</span><span>
+</span><span style="color:#65737e;"># Show a concise description of what you do below your avatar.
+</span><span style="color:#bf616a;">title </span><span>= &quot;</span><span style="color:#a3be8c;">Concise description</span><span>&quot;
+</span><span>
+</span><span style="color:#65737e;"># The list of interests displayed
+</span><span style="color:#bf616a;">interests </span><span>= [
+</span><span>  &quot;</span><span style="color:#a3be8c;">Rainbow pony</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">Martian food</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">Quantic science</span><span>&quot;
+</span><span>]
+</span><span>
+</span><span style="color:#65737e;"># The list of your degrees / education
+</span><span>[[extra.education.courses]]
+</span><span>  </span><span style="color:#bf616a;">course </span><span>= &quot;</span><span style="color:#a3be8c;">Latest degree</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">institution </span><span>= &quot;</span><span style="color:#a3be8c;">Some acamedy</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">year </span><span>= </span><span style="color:#d08770;">2020
+</span><span>
+</span><span>[[extra.education.courses]]
+</span><span>  </span><span style="color:#bf616a;">course </span><span>= &quot;</span><span style="color:#a3be8c;">Another degree</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">institution </span><span>= &quot;</span><span style="color:#a3be8c;">Here and there</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">year </span><span>= </span><span style="color:#d08770;">2016
+</span><span>
+</span><span style="color:#65737e;"># Finally, a list of icons with a link displayed below your avatar
+</span><span>[[extra.avatar_icons]]
+</span><span>  </span><span style="color:#bf616a;">icon </span><span>= &quot;</span><span style="color:#a3be8c;">github</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">link </span><span>= &quot;</span><span style="color:#a3be8c;">https://github.com/adfaure</span><span>&quot;
+</span><span>[[extra.avatar_icons]]
+</span><span>  </span><span style="color:#bf616a;">icon </span><span>= &quot;</span><span style="color:#a3be8c;">gitlab</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">link </span><span>= &quot;</span><span style="color:#a3be8c;">https://gitlab.com/adfaure</span><span>&quot;
+</span><span>[[extra.avatar_icons]]
+</span><span>  </span><span style="color:#bf616a;">icon </span><span>= &quot;</span><span style="color:#a3be8c;">linkedin</span><span>&quot;
+</span><span>  </span><span style="color:#bf616a;">link </span><span>= &quot;</span><span style="color:#a3be8c;">https://www.linkedin.com/in/adrien-faure-9958978b/</span><span>&quot;
+</span></code></pre>
+<h2 id="contact">Contact<a class="zola-anchor" href="#contact" aria-label="Anchor link for: contact">🔗</a></h2>
+<p>The predefined contact page can be use.
+The front matter extra part should contains a list of the link to show in the contacts.</p>
+<h2 id="sections">Sections<a class="zola-anchor" href="#sections" aria-label="Anchor link for: sections">🔗</a></h2>
+<p>The section available in your website are automatically detected and displayed in the nav bar at the top of the page.
+To prevent a section to be displayed in the nav bar, you can set the extra front matter option <code>extra.hidden_nav = false</code> to false.</p>
+<p>The section are sorted by <code>weight</code> defined in the front matter of the section.</p>
+<p>By default, the sections (i.e folders under <code>content/section_name</code>) have a summary showed in the index.
+This is configurable in the front matter of the section (e.g <code>content/section_name/_index.md</code>).</p>
+<pre data-lang="toml" style="background-color:#2b303b;color:#c0c5ce;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#65737e;"># The name displayed in the section summary
+</span><span style="color:#bf616a;">extra</span><span>.</span><span style="color:#bf616a;">index_title </span><span>= &quot;</span><span style="color:#a3be8c;">Recent Posts</span><span>&quot;
+</span><span style="color:#65737e;"># Set to false to remove the section from the index
+</span><span style="color:#bf616a;">extra</span><span>.</span><span style="color:#bf616a;">index_show </span><span>= </span><span style="color:#d08770;">true
+</span></code></pre>
+<h3 id="blog">Blog<a class="zola-anchor" href="#blog" aria-label="Anchor link for: blog">🔗</a></h3>
+<p>The section <code>blog</code> is the most standard section. It show a list of article with things that you want to share in your website.
+To use the blog template, configure the section with the following front matter:</p>
+<pre data-lang="toml" style="background-color:#2b303b;color:#c0c5ce;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#bf616a;">template </span><span>= &quot;</span><span style="color:#a3be8c;">blog.html</span><span>&quot;
+</span><span style="color:#bf616a;">page_template </span><span>= &quot;</span><span style="color:#a3be8c;">blog-page.html</span><span>&quot;
+</span></code></pre>
+<h3 id="publications">Publications<a class="zola-anchor" href="#publications" aria-label="Anchor link for: publications">🔗</a></h3>
+<p>The section <code>publication</code> is very similar to the <code>blog</code> section however it is dedicated to show your list of scientific articles.
+The articles are showed in two subcategories: Thesis and Conference / Workshop.</p>
+<p>To configure a publication section (e.g <code>content/research</code>) and set the following content:</p>
+<pre data-lang="md" style="background-color:#2b303b;color:#c0c5ce;" class="language-md "><code class="language-md" data-lang="md"><span>+++
+</span><span>title = &quot;Research&quot;
+</span><span>sort_by = &quot;date&quot;
+</span><span>
+</span><span style="color:#8fa1b3;"># Here the two dedicated templates
+</span><span>template = &quot;publications.html&quot;
+</span><span>page_template = &quot;publication-page.html&quot;
+</span><span>+++
+</span><span>
+</span><span style="color:#8fa1b3;">## Content
+</span><span>
+</span><span>Any content will be displayed on top of the section.
+</span></code></pre>
+<p>Article are referenced in subdirectories of this section.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>tree content/research
+</span><span>content/research
+</span><span>├── _index.md
+</span><span>├── paper1
+</span><span>│   ├── bib
+</span><span>│   └── index.md
+</span><span>└── thesis
+</span><span>    ├── bib
+</span><span>    ├── index.md
+</span><span>    ├── thesis.pdf
+</span><span>    └── thesis_slides.pdf
+</span></code></pre>
+<p>The bib files are automatically loaded to get information from it. However, it is also possible to add information in the front matter of the article markdown file.</p>
+<pre data-lang="markdown" style="background-color:#2b303b;color:#c0c5ce;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span>+++
+</span><span>title = &quot;Article 1&quot;
+</span><span>date = 2021-05-18
+</span><span>
+</span><span>[extra]
+</span><span>type = &quot;Conference&quot;
+</span><span>authors = [ &quot;Kodama Mononoke&quot; ]
+</span><span>publication_types = &quot;Conference paper&quot;
+</span><span>featured = true
+</span><span>publication = &quot;2020 IEE rainbow workshop&quot;
+</span><span>url_pdf = &quot;https://your-pdf&quot;
+</span><span>url_slides = &quot;path_to_slides&quot;
+</span><span>+++
+</span></code></pre>
+<h2 id="icons">Icons<a class="zola-anchor" href="#icons" aria-label="Anchor link for: icons">🔗</a></h2>
+<p>The icons available in this project are stored in a dedicated macro function in <code>templates/macros/icons.html</code>.
+To add a new svg, you can add a case in the <code>if elif .. else</code> of the function containing the svg copied from <a href="https://heroicons.com/">heroicons</a> for instance.</p>
+
+  </article>
+</div>
+<!-- <div class="sticky bottom-0 px-3">
+    <a href="#page-top">Back to top of page</a>
+  </div> -->
+  <footer class="bg-white">
+    <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8 px-4">
+    © Website title. Made with <a class="underline" target="_blank" href="https://getzola.org">zola</a>, inspired by <a class="underline" target="_blank" href="https://wowchemy.com/"> wowchemy</a> academic theme.
+    </div>
+  </footer>
+  </body>
+
+</html>
