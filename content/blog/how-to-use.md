@@ -97,6 +97,8 @@ The front matter extra part should contains a list of the link to show in the co
 The section available in your website are automatically detected and displayed in the nav bar at the top of the page.
 To prevent a section to be displayed in the nav bar, you can set the extra front matter option `extra.hidden_nav = false` to false.
 
+The section are sorted by `weight` defined in the front matter of the section.
+
 By default, the sections (i.e folders under `content/section_name`) have a summary showed in the index.
 This is configurable in the front matter of the section (e.g `content/section_name/_index.md`).
 

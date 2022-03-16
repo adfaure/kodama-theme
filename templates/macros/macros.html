@@ -18,17 +18,17 @@
   </div>
 {% endmacro %}
 
-{% macro section_index_summary(section_path, title="", show_wordcount=false) %}
+{% macro section_index_summary(section_path, title="", show_wordcount=false, show_element=2) %}
   {% set section = get_section(path=section_path) %}
   <div class="flex sm:flex-row flex-col py-4">
-    <div class="sm:basis-2/3 grow pb-4 sm:pb-0">
+    <div class="sm:basis-3/5 grow pb-4 sm:pb-0">
       <div class="prose">
         <h2 class="">{{ title }} </h2>
       </div>
     </div>
-    <div class="sm:basis-1/3 grow">
+    <div class="sm:basis-2/5 grow">
       <ul>
-        {% for page in section.pages | slice(end=2) %}
+        {% for page in section.pages | slice(end=show_element) %}
           <li class="pb-3">
             {{ blog::page_summary(page=page, show_wordcount=show_wordcount) }}
           </li>
