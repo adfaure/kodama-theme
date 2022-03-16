@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.extra.name) }}
+{% endblock nav %}
+
+{% block content %}
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="font-sans py-8">
+    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">{{ section.extra.name }}</h1>
+  </div>
+
+  <article class="prose prose-indigo prose max-w-3xl">
+    {{ section.content | safe }}
+  </article>
+
+  <div class="prose py-4">
+    <h2 class=""> Conferences and workshops </h2>
+  </div>
+
+  <ul>
+  {% for page in section.pages %}
+    {% if page.extra.type == "Conference" %}
+    <li class="pb-3">
+
+      {% set bibpath = page.path ~ "bib" %}
+      {{ publication::publication_summary(page=page) }}
+
+    </li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+
+  <div class="prose py-4">
+    <h2 class=""> These(s) </h2>
+  </div>
+
+  <ul>
+  {% for page in section.pages %}
+    {% if page.extra.type == "These" %}
+    <li class="pb-3">
+
+      {% set bibpath = page.path ~ "bib" %}
+      {{ publication::publication_summary(page=page) }}
+
+    </li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+
+</div>
+{% endblock content %}

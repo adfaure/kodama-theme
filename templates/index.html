@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="">
+  <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-5xl py-10 px-3">
+    <div class="basis-full sm:basis-2/5 ">
+      <div class="container mx-auto">
+        {% set image = resize_image(path="static/img/kodama.png", format="webp", width=208, height=208) %}
+        <img class="object-center w-52 h-52 rounded-full mx-auto" src="{{image.url}}" alt="Profile image"/>
+        <h1 class="text-center font-bold break-normal text-gray-900 text-3xl py-1">{{ config.title }}</h1>
+        {% if section.extra.title %}
+        <h2 class="text-center font-bold break-normal text-gray-400 text-lg py-1">{{ section.extra.title }}</h2>
+        {% endif %}
+        <div class="flex flex-row flex-wrap container py-10 justify-center">
+          {% for icon in section.extra.avatar_icons %}
+            <div class="basis p-3 ">
+              <a href="{{icon.link}}" target="_blank"><i>{{ icons::factory(icon=icon.icon,classes="inline h-12 w-12 flex-no-shrink stroke-blue-600 hover:stroke-blue-800 visited:stroke-purple-600 fill-blue-600 visited:fill-purple-600 hover:fill-blue-800 ") }}</i></a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="basis-full sm:basis-3/5">
+      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl sm:text-5xl pb-4">Biography</h1>
+      <article class="prose prose-indigo prose">
+      {{ section.content | safe }}
+      </article>
+      <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-4xl sm:py-10 py-4">
+        <div class="basis-full sm:basis-1/2 pb-4">
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Interests</h2>
+          <ul class="list-disc pl-4">
+            {% for interest in section.extra.interests %}
+            <li class="py-1"> {{ interest }} </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="basis-full sm:basis-1/2">
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Education</h2>
+          <ul class="">
+            {% for course in section.extra.education.courses %}
+            <li class="py-1">
+              <div class="flex flex-row flex-wrap">
+                <div class="basis-full">
+                  <i>{{ icons::factory(icon="academic",classes="inline h-6 w-6 flex-no-shrink") }}</i> {{ course.course }}, {{ course.year }}
+                </div>
+                <div class="basis-full text-gray-400">
+                {{ course.institution }}
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% set_global index = 0 -%}
+  {% for ssection in section.subsections -%}
+  {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
+  {% if ssection_data.extra.index_show -%}
+      <div class="{% if index % 2 != 0%} bg-white {% else %} bg-gray-50 {% endif %}">
+        <div class="container max-w-4xl mx-auto px-4 py-8">
+          {% set title = ssection_data.title -%}
+          {% if ssection_data.extra.index_title -%}
+            {% set title = ssection_data.extra.index_title -%}
+          {% endif %}
+          {{ macros::section_index_summary(section_path=ssection, title=title) }}
+        </div>
+      </div>
+    {% set_global index = index + 1 -%}
+    {% endif -%}
+  {% endfor -%}
+
+  {% block index_contact -%}
+    {% if config.extra.contact_in_index and config.extra.contact_in_index == true -%}
+    <div class="{% if index % 2 != 0%} bg-white {% else %} bg-gray-50 {% endif %}">
+      <div class="container max-w-4xl mx-auto px-4">
+      {{ macros::contact_from_config(section=section, config=config) }}
+      </div>
+    </div>
+    {% endif -%}
+  {% endblock index_contact -%}
+
+{% endblock content-%}

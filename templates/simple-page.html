@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  {% set section = get_section(path=page.ancestors[0], metadata_only=true) %}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
+{% endblock nav %}
+
+{% block content %}
+<div class="container max-w-3xl mx-auto">
+  <div class="pt-8 flex flex">
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{ page.title }}</h1>
+  </div>
+  <div class="mb-8"></div>
+
+  <article class="prose prose-indigo prose max-w-3xl">
+    {{ page.content | safe }}
+  </article>
+</div>
+{% endblock content %}

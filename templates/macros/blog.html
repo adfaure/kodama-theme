@@ -1,0 +1,12 @@
+
+{% macro page_summary(page, show_wordcount=false) %}
+<a  href="{{ page.permalink | safe }}">
+  <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
+  {% if page.summary -%}
+  <p class="pb-1"> {{ page.summary | safe }} </p>
+  {% elif page.description %}
+  <p class="pb-1"> {{ page.description | safe }} </p>
+  {% endif -%}
+  <p class="text-sm text-slate-400"> {{ page.date }} {% if show_wordcount == true -%} • wordcount: {{ page.word_count }} • {{ page.reading_time }} min read {% endif -%}</p>
+</a>
+{% endmacros %}

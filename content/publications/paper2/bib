@@ -1,0 +1,9 @@
+@inproceedings{article2,
+  author    = {Kodama Mononoke},
+  title     = {Online Scheduling with Redirection for Parallel Jobs},
+  booktitle = {2020 IEEE rainbow workshop},
+  abstract  = {Abstract of the article ...},
+  pages     = {326--329},
+  year      = {2020},
+  biburl    = {https://domain.com/article2},
+}

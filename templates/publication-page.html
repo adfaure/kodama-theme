@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  {% set section = get_section(path=page.ancestors[1], metadata_only=true) %}
+  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
+{% endblock nav %}
+
+{% block content %}
+
+{% set bibtex_path = page.path ~ "bib" -%}
+{% set plaintex = load_data(path=bibtex_path, required=false, format="plain") -%}
+
+{% if plaintex %}
+  {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
+  {% set bibdata = bibtex.bibliographies[0].tags -%}
+{% endif %}
+
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="pt-8 flex-col mb-8">
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{ page.title }}</h1>
+    <div class="grow">
+      <p class="text-sm text-slate-400">
+        {% if page.extra.authors %}
+          {% for author in page.extra.authors %}
+            {{ author }}{% if loop.last %}.{% else %},{% endif %}
+          {% endfor %}
+        {% elif bibdata.author %}
+          {{ bibdata.author }}
+        {% else %}
+          Unknown author. Refer to the documentation.
+        {% endif %}
+      </p>
+    </div>
+    <div class="grow">
+      <p class="text-sm text-slate-400">{{ page.date |  date(format="%B %Y") }}</p>
+    </div>
+    <div class="grow pt-2">
+      {% if page.extra.url_pdf %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
+      {% endif %}
+      {% if page.extra.url_slides %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{ page.extra.url_slides }}"> slides </a>
+      {% endif %}
+      {% if bibdata and bibdata.url %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{bibdata.url}}"> url </a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if bibdata.abstract %}
+  <p class="font-bold">Abstract</p>
+  <article class="prose prose-indigo prose max-w-3xl pb-4">{{ bibdata.abstract | safe }} </article>
+  {% endif %}
+
+  {% if plaintex %}
+  <div>
+    <p class="font-bold">Bibtex</p>
+    <div class="prose prose-indigo pb-4">
+      <pre ><code class="select-all">{{ plaintex | safe }}</code></pre>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock content %}

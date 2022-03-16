@@ -1,0 +1,37 @@
+# The URL the site will be built for
+base_url = "https://adrien-faure.fr/kodama-theme"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+
+title = "Website title"
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+# Various slugification strategies, see below for details
+# Defaults to everything being a slug
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+highlight_theme = "base16-ocean-dark"
+
+[extra]
+# Enter your email
+email = "kodama[at]domain.com"
+
+contact_in_index = true
+
+# The item menu showed in the top bar.
+# `Name` is what it is displayed, `path` is the url
+menu_items = [
+  { path = "blog", name = "Blog" },
+  { path = "publications", name = "Research"},
+  { path = "#contacts", name = "Contact" },
+]

@@ -1,0 +1,54 @@
+{% import 'macros/head.html' as macros_head -%}
+{% import 'macros/nav.html' as macros_nav -%}
+{% import 'macros/macros.html' as macros -%}
+{% import 'macros/icons.html' as icons -%}
+{% import 'macros/blog.html' as blog -%}
+{% import 'macros/publication.html' as publication -%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  {% set favicon = resize_image(path="static/img/kodama.png", format="png", width=32, height=32) %}
+  <link rel="shortcut icon" href="{{ favicon.url }}" type="image/png">
+  <link rel="icon" href="{{ favicon.url }}" type="image/png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  {% block head -%}
+    <meta charset="utf-8">
+    {{ macros_head::stylesheet() }}
+    {% block css -%}
+    {% endblock css -%}
+
+    {% block title -%}
+      <title>{{ config.title  }}</title>
+    {% endblock title -%}
+  {% endblock head -%}
+</head>
+
+<body class="bg-white">
+  <!-- Top nav bar -->
+  {% block nav -%}
+    {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items) }}
+  {% endblock nav -%}
+  <!-- Container -->
+  {% block content -%}
+  {% endblock content -%}
+  <!-- <div class="sticky bottom-0 px-3">
+    <a href="#page-top">Back to top of page</a>
+  </div> -->
+  {% block footer -%}
+  <footer class="bg-white">
+    <div class="bg-white text-gray-400 container max-w-4xl mx-auto my-8 px-4">
+    © {{ config.title }}. Made with <a class="underline" target="_blank" href="https://getzola.org">zola</a>, inspired by <a class="underline" target="_blank" href="https://wowchemy.com/"> wowchemy</a> academic theme.
+    </div>
+  </footer>
+  {% endblock footer -%}
+
+</body>
+
+</html>
