@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block title -%}
+{% set section =  get_section(path=page.ancestors[1], metadata_only=true)  -%}
+<title>{% if section -%}{{ section.title }} | {% endif %} {{ config.title }}</title>
+{% endblock title -%}
+
 {% block nav %}
   {% set section = get_section(path=page.ancestors[1], metadata_only=true) %}
   {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
