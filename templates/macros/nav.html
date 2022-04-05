@@ -17,7 +17,7 @@
             {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
             {% if not ssection_data.extra.hidden_nav -%}
             <li class="mr-3 text-sm">
-              <a href={{ get_url(path=ssection_data.path, trailing_slash=false) }} class={%if ssection_data.title == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%} href="#">
+              <a href={{ get_url(path=ssection_data.path, trailing_slash=false) }} class={%if ssection_data.title == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
                 {{ssection_data.title}}
               </a>
             </li>
@@ -25,7 +25,7 @@
           {% endfor -%}
           {% for item in menu_items -%}
           <li class="mr-3 text-sm">
-            <a href={{ get_url(path=item.path, trailing_slash=false) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%} href="#">
+            <a href={{ get_url(path=item.path, trailing_slash=false) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
               {{item.name}}
             </a>
           </li>
