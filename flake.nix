@@ -1,7 +1,7 @@
 {
   inputs = {
     oxalica.url = "github:oxalica/rust-overlay";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
   };
 
   outputs = { self, nixpkgs, oxalica }:
