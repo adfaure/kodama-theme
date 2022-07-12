@@ -14,39 +14,67 @@
     {{ section.content | safe }}
   </article>
 
+
+  {% set isfirst = true %}
+  {% for page in section.pages  %}
+    {% if page.extra.type == "Journal" %}
+      {% if isfirst %}
+  <div class ="prose py-4">
+    <h2 class=""> Journal articles </h2>
+  </div>
+        {% set_global isfirst = false %}
+      {% endif %}
+
+  <ul>
+      <li class="pb-3">
+	{% set bibpath = page.path ~ "bib" %}
+	{{ publication::publication_summary(page=page) }}
+      </li>
+  </ul>
+    {% endif %}
+  {% endfor %}
+
+  {% set isfirst = true %}
+  {% for page in section.pages %}
+    {% if page.extra.type == "Conference" %}
+      {% if isfirst %}
   <div class="prose py-4">
     <h2 class=""> Conferences and workshops </h2>
   </div>
+        {% set_global isfirst = false %}
+      {% endif %}
 
   <ul>
-  {% for page in section.pages %}
-    {% if page.extra.type == "Conference" %}
     <li class="pb-3">
 
       {% set bibpath = page.path ~ "bib" %}
       {{ publication::publication_summary(page=page) }}
 
     </li>
+  </ul>
     {% endif %}
   {% endfor %}
-  </ul>
 
-  <div class="prose py-4">
-    <h2 class=""> These(s) </h2>
-  </div>
-
-  <ul>
+  {% set isfirst = true %}
   {% for page in section.pages %}
     {% if page.extra.type == "These" %}
+      {% if isfirst %}
+  <div class="prose py-4">
+    <h2 class=""> Thesis </h2>
+  </div>
+        {% set_global isfirst = false %}
+      {% endif %}
+
+  <ul>
     <li class="pb-3">
 
       {% set bibpath = page.path ~ "bib" %}
       {{ publication::publication_summary(page=page) }}
 
     </li>
+  </ul>
     {% endif %}
   {% endfor %}
-  </ul>
 
 </div>
 {% endblock content %}
