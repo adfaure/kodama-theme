@@ -41,11 +41,11 @@
       <p class="text-sm text-slate-400">{{ page.date |  date(format="%B %Y") }}</p>
     </div>
     <div class="grow pt-2">
-      {% if page.extra.url_pdf %}
-      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
+      {% if page.extra.pdf %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.path ~ page.extra.pdf }}"> pdf </a>
       {% endif %}
-      {% if page.extra.url_slides %}
-      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{ page.extra.url_slides }}"> slides </a>
+      {% if page.extra.slides %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.path ~ page.extra.slides }}"> slides </a>
       {% endif %}
       {% if bibdata and bibdata.url %}
       <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{bibdata.url}}"> url </a>
