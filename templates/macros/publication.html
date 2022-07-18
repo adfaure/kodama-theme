@@ -34,14 +34,20 @@
     <p class="text-sm"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
     <p class="text-sm text-slate-400 pb-4">{{ page.date |  date(format="%B %Y") }}  {% if bibdata.booktitle %} • {{  bibdata.booktitle }}{% endif %}</p>
-    {% if page.extra.url_pdf -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{ page.extra.url_pdf }}"> pdf </a>
+
+    {% if page.extra.url_pdf %}
+    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
+    {% elif page.extra.pdf -%}
+    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.path ~ page.extra.pdf }}"> pdf </a>
     {% endif -%}
-    {% if page.extra.url_slides -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{ page.extra.url_slides }}"> slides </a>
+
+    {% if page.extra.url_slides %}
+    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_slides }}"> slides </a>
+    {% elif page.extra.slides -%}
+    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.path ~ page.extra.slides }}"> slides </a>
     {% endif -%}
     {% if bibdata and bibdata.url -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" href="{{bibdata.url}}"> url </a>
+    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
     {% endif -%}
   </a>
 </div>
