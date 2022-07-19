@@ -67,7 +67,7 @@
             tailwindcss -i styles/styles.css -o static/styles/style.css
           '';
 
-          base-url = "https://adfaure.github.io/kodama-theme/";
+          base-url = "https://adfaure.github.io/kodama-theme";
           installPhase = ''
             zola build -o $out --base-url ${base-url}
           '';
