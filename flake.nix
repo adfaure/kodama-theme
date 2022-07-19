@@ -1,7 +1,8 @@
 {
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     oxalica.url = "github:oxalica/rust-overlay";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+    oxalica.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, oxalica }:
@@ -9,12 +10,12 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        overlays = [ oxalica.overlay ];
+        overlay.default = [ oxalica.overlay ];
         config.allowUnfree = true;
       };
 
       # To update the tailwind packages use node2nix
-      # node2nix -c tailwindcss.nix
+      # node2nix -c tailwindcss.nix -16
       nodeDependencies = (pkgs.callPackage ({ pkgs, system }:
         let nodePackages = import ./tailwindcss.nix { inherit pkgs system; };
         in nodePackages // {
@@ -23,13 +24,13 @@
               # pkgs.nodePackages.node-gyp-build
             ];
           };
-        }) { }).shell.nodeDependencies;
+        }) { }).nodeDependencies;
     in {
 
       packages.x86_64-linux = {
         website = pkgs.stdenv.mkDerivation rec {
           version = "0.0.1";
-          name = "batsite-${version}";
+          name = "kodama-theme-${version}";
           src = pkgs.lib.sourceByRegex ./. [
             "^content"
             "^content/.*"
@@ -46,10 +47,12 @@
             "tailwind.config.js"
             "config.toml"
           ];
+
           buildInputs = [
             pkgs.zola
             pkgs.nodePackages.npm
             pkgs.tree
+            # nodeDependencies
           ];
 
           checkPhase = ''
@@ -57,13 +60,11 @@
           '';
 
           buildPhase = ''
-            tree
-
+            # https://github.com/svanderburg/node2nix#using-the-nodejs-environment-in-other-nix-derivations
             ln -s ${nodeDependencies}/lib/node_modules ./node_modules
             export PATH="${nodeDependencies}/bin:$PATH"
 
-            ls -l
-            npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+            tailwindcss -i styles/styles.css -o static/styles/style.css
           '';
 
           base-url = "https://adfaure.github.io/kodama-theme/";
@@ -77,13 +78,13 @@
         buildInputs = with pkgs; [
           zola
           nodeDependencies
-          nodePackages.npm
+          # nodePackages.npm
           nodePackages.node2nix
         ];
         # This tells npx where to find the node lib.
         # The css generation can be done with:
         # npx tailwindcss -i styles/styles.css -o static/styles/styles.css
-        NODE_PATH="${nodeDependencies}/lib/node_modules";
+        # NODE_PATH="${nodeDependencies}/lib/node_modules";
       };
     };
 }
