@@ -1,0 +1,9 @@
+@inproceedings{article2,
+  author    = {Kodama Mononoke},
+  title     = {Article2 title},
+  booktitle = {2020 IEEE rainbow workshop},
+  abstract  = {Abstract of the article ...},
+  pages     = {326--329},
+  year      = {2020},
+  biburl    = {https://domain.com/article2},
+}
