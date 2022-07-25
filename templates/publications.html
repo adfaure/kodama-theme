@@ -21,7 +21,7 @@
 
     <ul>
     {% for page in section.pages  -%}
-      {% if page.extra.type == publication_type.name -%}
+      {% if page.extra.type == publication_type.type -%}
       <li class="pb-3">
         {% set bibpath = page.path ~ "bib" -%}
         {{ publication::publication_summary(page=page) }}
