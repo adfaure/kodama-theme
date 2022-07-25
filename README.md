@@ -179,6 +179,17 @@ sort_by = "date"
 # Here the two dedicated templates
 template = "publications.html"
 page_template = "publication-page.html"
+
+# If you want to show your publications under different sections
+# the title will be the displayed text in your website, and the type
+# should be the type of publication.
+# Each individual plublication has an `extra.type` that refers to the
+# publication type (example in content sub-section).
+extra.publications_types = [
+  { title = "Journal articles", type = "journals" },
+  { title = "Thesis", type = "thesis" },
+  { title = "Conferences and workshops ", type = "conferences" }
+]
 +++
 
 ## Content
@@ -211,7 +222,11 @@ date = 2021-05-18
 [extra]
 type = "Conference"
 authors = [ "Kodama Mononoke" ]
-publication_types = "Conference paper"
+
+# Should be the type of the publication type it should appears under
+# configured in the front matter of publications/_index.md
+publication_types = "conferences"
+
 featured = true
 publication = "2020 IEE rainbow workshop"
 # Add full url for your pdf and your presentation
