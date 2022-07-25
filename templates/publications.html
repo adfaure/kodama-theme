@@ -14,7 +14,7 @@
     {{ section.content | safe }}
   </article>
 
-  {% for publication_type in config.extra.publications_types -%}
+  {% for publication_type in section.extra.publications_types -%}
     <div class ="prose py-4">
       <h2 class=""> {{publication_type.title}} </h2>
     </div>
