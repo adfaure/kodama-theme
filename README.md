@@ -225,7 +225,7 @@ authors = [ "Kodama Mononoke" ]
 
 # Should be the type of the publication type it should appears under
 # configured in the front matter of publications/_index.md
-publication_types = "conferences"
+type = "conferences"
 
 featured = true
 publication = "2020 IEE rainbow workshop"
