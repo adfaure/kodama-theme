@@ -37,3 +37,9 @@ contact_in_index = true
 menu_items = [
   { path = "#contacts", name = "Contact" },
 ]
+
+publications_types = [
+  { title = "Journal articles", name = "journals" },
+  { title = "Thesis", name = "thesis" },
+  { title = "Conferences and workshops ", name = "conferences" }
+]

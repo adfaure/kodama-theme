@@ -59,6 +59,7 @@
   {% endblock biography %}
 
   {% block index_summaries -%}
+
   {% set_global index = 0 -%}
   {% for ssection in section.subsections -%}
   {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}

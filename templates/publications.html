@@ -14,67 +14,21 @@
     {{ section.content | safe }}
   </article>
 
+  {% for publication_type in config.extra.publications_types -%}
+    <div class ="prose py-4">
+      <h2 class=""> {{publication_type.title}} </h2>
+    </div>
 
-  {% set isfirst = true %}
-  {% for page in section.pages  %}
-    {% if page.extra.type == "Journal" %}
-      {% if isfirst %}
-  <div class ="prose py-4">
-    <h2 class=""> Journal articles </h2>
-  </div>
-        {% set_global isfirst = false %}
-      {% endif %}
-
-  <ul>
+    <ul>
+    {% for page in section.pages  -%}
+      {% if page.extra.type == publication_type.name -%}
       <li class="pb-3">
-	{% set bibpath = page.path ~ "bib" %}
-	{{ publication::publication_summary(page=page) }}
+        {% set bibpath = page.path ~ "bib" -%}
+        {{ publication::publication_summary(page=page) }}
       </li>
-  </ul>
-    {% endif %}
-  {% endfor %}
-
-  {% set isfirst = true %}
-  {% for page in section.pages %}
-    {% if page.extra.type == "Conference" %}
-      {% if isfirst %}
-  <div class="prose py-4">
-    <h2 class=""> Conferences and workshops </h2>
-  </div>
-        {% set_global isfirst = false %}
-      {% endif %}
-
-  <ul>
-    <li class="pb-3">
-
-      {% set bibpath = page.path ~ "bib" %}
-      {{ publication::publication_summary(page=page) }}
-
-    </li>
-  </ul>
-    {% endif %}
-  {% endfor %}
-
-  {% set isfirst = true %}
-  {% for page in section.pages %}
-    {% if page.extra.type == "These" %}
-      {% if isfirst %}
-  <div class="prose py-4">
-    <h2 class=""> Thesis </h2>
-  </div>
-        {% set_global isfirst = false %}
-      {% endif %}
-
-  <ul>
-    <li class="pb-3">
-
-      {% set bibpath = page.path ~ "bib" %}
-      {{ publication::publication_summary(page=page) }}
-
-    </li>
-  </ul>
-    {% endif %}
-  {% endfor %}
-
+      {% endif  -%}
+    {% endfor -%}
+    </ul>
+  {% endfor -%}
 </div>
 {% endblock content %}
