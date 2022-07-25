@@ -214,8 +214,13 @@ authors = [ "Kodama Mononoke" ]
 publication_types = "Conference paper"
 featured = true
 publication = "2020 IEE rainbow workshop"
+# Add full url for your pdf and your presentation
 url_pdf = "https://your-pdf"
 url_slides = "path_to_slides"
+
+# Add a link to a local pdf inside of your paper folder (example in content/publications/paper1.index.md)
+pdf = "paper.pdf"
+slides = "path_to_slides.pdf"
 +++
 ```
 
