@@ -13,7 +13,7 @@ demo = "https://adfaure.github.io/kodama-theme/"
 # be merged with user data, some kind of prefix or nesting is preferable
 # Use snake_casing to be consistent with the rest of Zola
 [extra]
-version = 1.0.0
+version = "1.0.0"
 
 [author]
 name = "Adrien Faure"
