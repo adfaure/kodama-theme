@@ -17,18 +17,22 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta charset="utf-8">
+
+  <!-- Custom header for users, includes custom css or js here -->
+  {% block user_head -%}
+  {% endblock user_head -%}
+
+  <title>{% if section -%}{{ section.title }} | {% endif %} {{ config.title }}</title>
 
   {% block head -%}
-    <meta charset="utf-8">
-    {{ macros_head::stylesheet() }}
     {% block css -%}
+      {{ macros_head::stylesheet() }}
     {% endblock css -%}
 
     {% block title -%}
-    {% set section =  load_data(path=current_path ~ "_index.md", metadata_only=true, required = false)  -%}
-    <title>{% if section -%}{{ section.title }} | {% endif %} {{ config.title }}</title>
+      {% set section =  load_data(path=current_path ~ "_index.md", metadata_only=true, required = false)  -%}
     {% endblock title -%}
-
   {% endblock head -%}
 </head>
 
