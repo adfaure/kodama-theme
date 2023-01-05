@@ -5,13 +5,10 @@ jobs:
   Nix-Flake-Build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: cachix/install-nix-action@v13
+    - uses: actions/checkout@v3
+    - uses: cachix/install-nix-action@v18
       with:
-        install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
-        install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
-        extra_nix_config: |
-          experimental-features = nix-command flakes
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
     - run: nix build .#packages.x86_64-linux.website
     - run: cp -rL result ./site
     - run: chmod +xwr site &&  find site -type d -exec chmod +xwr {} + && find site -type f -exec chmod 644 {} +
