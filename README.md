@@ -239,6 +239,23 @@ slides = "path_to_slides.pdf"
 +++
 ```
 
+## Extend the html header
+
+In some cases, it is needed to add extra javascript or css files to be loaded by the web browsers.
+The base template of this theme define an empty block named `user_head`.
+
+To use this block, you can just create a new template name `templates/base.html` with the following content:
+
+```html
+{% extends "kodama-theme/templates/base.html" %}
+
+{% block user_head %}
+  <script>
+    console.log("hello world!");
+  </script>
+{% endblock user_head %}
+```
+
 ## Icons
 
 The icons available in this project are stored in a dedicated macro function in `templates/macros/icons.html`.
