@@ -12,7 +12,12 @@
     <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
       <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
           {# Get the upper section -#}
-          {% set index_section = get_section(path="_index.md", metadata_only=true) -%}
+          {% if lang == config.default_language -%}
+            {% set index = "_index.md" -%}
+          {% else -%}
+            {% set index = "_index." ~ lang ~ ".md" -%}
+          {% endif -%}
+          {% set index_section = get_section(path=index, metadata_only=true) -%}
           {% for ssection in index_section.subsections -%}
             {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
             {% if not ssection_data.extra.hidden_nav -%}
@@ -25,11 +30,19 @@
           {% endfor -%}
           {% for item in menu_items -%}
           <li class="mr-3 text-sm">
-            <a href={{ get_url(path=item.path, trailing_slash=false) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
+            <a href={{ get_url(path=item.path, trailing_slash=false, lang=lang) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
               {{item.name}}
             </a>
           </li>
           {% endfor -%}
+          {% set translations = section.translations | default(value=page.translations|default(value="")) %}
+          {% for t in translations %}{% if lang != t.lang %}
+          <li class="mr-3 text-sm">
+            <a href="{{ t.permalink }}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">
+              {{ t.lang }}
+            </a>
+          </li>
+          {% endif %}{% endfor %}
       </ul>
     </div>
   </div>
