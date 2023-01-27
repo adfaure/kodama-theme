@@ -1,20 +1,25 @@
 {% import 'macros/contact.html' as macros_contact -%}
 {% import 'macros/blog.html' as macros_blog -%}
 
+{% macro dot_lang() -%}
+  {% if lang == config.default_language -%}{{ "" }}{% else -%}{{ "." ~ lang }}{% endif -%}
+{% endmacro %}
+
 {% macro contact_from_config(section, config) -%}
   {% set email = "" -%}
   {% if config.extra.email -%}
     {% set email = config.extra.email -%}
   {% endif -%}
 
-  {% set contact = get_page(path="./contacts.md", metadata_only=true) -%}
+  {% set dot_lang = macros::dot_lang() -%}
+  {% set contact = get_page(path="./contacts" ~dot_lang~ ".md", metadata_only=true) -%}
 
   {% set links = "" -%}
   {% if contact.extra.links -%}
     {% set links = contact.extra.links -%}
   {% endif -%}
   <a name="contacts"></a>
-  {{ macros_contact::contact_list(title="Contact", links=links, email=email) }}
+  {{ macros_contact::contact_list(title=contact.title, links=links, email=email) }}
   </div>
 {% endmacro %}
 

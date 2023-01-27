@@ -12,11 +12,7 @@
     <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
       <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
           {# Get the upper section -#}
-          {% if lang == config.default_language -%}
-            {% set dot_lang = "" -%}
-          {% else -%}
-            {% set dot_lang = "." ~ lang -%}
-          {% endif -%}
+          {% set dot_lang = macros::dot_lang() -%}
           {% set index_section = get_section(path="_index"~dot_lang~".md", metadata_only=true) -%}
           {% for ssection in index_section.subsections -%}
             {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
