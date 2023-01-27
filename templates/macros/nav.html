@@ -29,9 +29,9 @@
             {% endif -%}
           {% endfor -%}
           {% if lang == config.default_language -%}
-            {% set menu_items = config["extra"].menu_items -%}
+            {% set menu_items = config.extra.menu_items -%}
           {% else -%}
-            {% set menu_items = config["extra"][lang].menu_items -%}
+            {% set menu_items = config.extra[lang].menu_items -%}
           {% endif -%}
           {% for item in menu_items -%}
           <li class="mr-3 text-sm">
