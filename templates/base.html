@@ -39,7 +39,7 @@
 <body class="bg-white">
   <!-- Top nav bar -->
   {% block nav -%}
-    {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items) }}
+    {{ macros_nav::nav(website_title=config.title) }}
   {% endblock nav -%}
   <!-- Container -->
   {% block content -%}

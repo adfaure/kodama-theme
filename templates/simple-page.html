@@ -2,7 +2,7 @@
 
 {% block nav %}
   {% set section = get_section(path=page.ancestors[0], metadata_only=true) %}
-  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
+  {{ macros_nav::nav(website_title=config.title, active_item=section.title) }}
 {% endblock nav %}
 
 {% block content %}
