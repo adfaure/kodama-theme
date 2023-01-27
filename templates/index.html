@@ -66,11 +66,9 @@
   {% if ssection_data.extra.index_show -%}
       <div class="{% if index % 2 != 0%} bg-white {% else %} bg-gray-50 {% endif %}">
         <div class="container max-w-4xl mx-auto px-4 py-8">
-          {% set title = ssection_data.title -%}
-          {% if ssection_data.extra.index_title -%}
-            {% set title = ssection_data.extra.index_title -%}
-          {% endif %}
-          {{ macros::section_index_summary(section_path=ssection, title=title) }}
+          {% set title = ssection_data.extra.index_title | default(value=ssection_data.title) -%}
+          {% set index_elements = ssection_data.extra.index_elements | default(value=2) -%}
+          {{ macros::section_index_summary(section_path=ssection, title=title, show_element=index_elements) }}
         </div>
       </div>
     {% set_global index = index + 1 -%}
