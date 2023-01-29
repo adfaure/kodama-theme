@@ -24,7 +24,7 @@
     </div>
     <div class="basis-full sm:basis-3/5">
       <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl sm:text-5xl pb-4">{{trans(key="Biography", lang=lang)}}</h1>
-      <article class="prose prose-indigo prose">
+      <article class="prose prose-indigo">
       {{ section.content | safe }}
       </article>
       <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-4xl sm:py-10 py-4">
@@ -68,7 +68,8 @@
         <div class="container max-w-4xl mx-auto px-4 py-8">
           {% set title = ssection_data.extra.index_title | default(value=ssection_data.title) -%}
           {% set index_elements = ssection_data.extra.index_elements | default(value=2) -%}
-          {{ macros::section_index_summary(section_path=ssection, title=title, show_element=index_elements) }}
+          {% set show_description = ssection_data.extra.description_in_index | default(value=true) -%}
+          {{ macros::section_index_summary(section_path=ssection, title=title, show_element=index_elements, show_description=show_description) }}
         </div>
       </div>
     {% set_global index = index + 1 -%}

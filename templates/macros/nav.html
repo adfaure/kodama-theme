@@ -39,9 +39,7 @@
           {% set translations = section.translations | default(value=page.translations|default(value="")) -%}
           {% for t in translations -%}{% if lang != t.lang -%}
           <li class="mr-3 text-sm">
-            <a href="{{ t.permalink }}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">
-              {{ t.lang }}
-            </a>
+            <a href="{{t.permalink}}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{t.lang}}</a>
           </li>
           {% endif -%}{% endfor -%}
       </ul>

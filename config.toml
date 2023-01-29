@@ -15,6 +15,8 @@ build_search_index = false
 Biography = "Biography"
 Interests = "Interests"
 Education = "Education"
+toc = "Table of Contents"
+Published = "Published"
 
 # Various slugification strategies, see below for details
 # Defaults to everything being a slug
