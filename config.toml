@@ -17,6 +17,8 @@ Interests = "Interests"
 Education = "Education"
 toc = "Table of Contents"
 Published = "Published"
+volume = "volume"
+pages = "pages"
 
 # Various slugification strategies, see below for details
 # Defaults to everything being a slug

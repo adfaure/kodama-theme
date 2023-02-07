@@ -1,5 +1,34 @@
+{% macro bibpath(page) -%}
+{% for asset in page.assets -%}
+  {% if asset is ending_with("bib") -%}{{asset}}{% break -%}{% endif -%}
+{% endfor -%}
+{% endmacro -%}
+
+{% macro title(page, bibtags) -%}
+  {% set bibtitle = bibtags.title | default(value="") -%}
+  {{page.title | default(value=bibtitle)}}
+{% endmacro -%}
+
+{% macro authors(page, bibtags) -%}
+  {% if page.extra.authors -%}
+    {{ page.extra.authors | join(sep=", ") }}
+  {% elif bibtags.author -%}
+    {{ bibtags.author | replace(from=" and", to=",") }}
+  {% else -%}
+    Unknown author. Refer to the documentation.
+  {% endif -%}
+{% endmacro -%}
+
+{% macro details(page, bibtags, sep=" • ") -%}
+  {{ page.date | date(format="%B %Y") }}
+  {% if bibtags.booktitle -%}{{ sep }}{{ bibtags.booktitle }}{% endif -%}
+  {% if bibtags.journal -%}{{ sep }}{{ bibtags.journal }}{% endif -%}
+  {% if bibtags.volume -%}{{ sep }}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{% endif -%}
+  {% if bibtags.pages -%}{{ sep }}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{% endif -%}
+{% endmacro -%}
+
 {% macro publication_summary(page) -%}
-{% set bibtex_path = page.path ~ "bib" -%}
+{% set bibtex_path = publication::bibpath(page=page) -%}
 {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
 
 {% if bibtex -%}
@@ -15,25 +44,15 @@
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
   <a  href="{{ page.permalink | safe }}">
 
-    <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
+    <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
     <div class="pb-2">
-      <p class="text-sm text-slate-400">
-        {% if page.extra.authors -%}
-        {% for author in page.extra.authors -%}
-          {{ author }}{% if loop.last -%}.{% else -%},{% endif -%}
-        {% endfor %}
-        {% elif bibdata.author -%}
-          {{ bibdata.author }}
-        {% else %}
-          Unknown author. Refer to the documentation.
-        {% endif -%}
-      </p>
+      <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
     </div>
 
     {% if bibdata.abstract -%}
     <p class="text-sm"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
-    <p class="text-sm text-slate-400 pb-4">{{ page.date |  date(format="%B %Y") }}  {% if bibdata.booktitle %} • {{  bibdata.booktitle }}{% endif %}</p>
+    <p class="text-sm text-slate-400 pb-4">{{publication::details(page=page, bibtags=bibdata)}}</p>
 
     {% if page.extra.url_pdf %}
     <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>

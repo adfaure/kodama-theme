@@ -13,32 +13,21 @@
 
 {% block content %}
 
-{% set bibtex_path = page.path ~ "bib" -%}
+{% set bibtex_path = publication::bibpath(page=page) -%}
 {% set plaintex = load_data(path=bibtex_path, required=false, format="plain") -%}
-
 {% if plaintex %}
   {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
   {% set bibdata = bibtex.bibliographies[0].tags -%}
-{% endif %}
+{% endif -%}
 
 <div class="container max-w-3xl mx-auto px-4">
   <div class="pt-8 flex-col mb-8">
-    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{ page.title }}</h1>
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{publication::title(page=page, bibtags=bibdata)}}</h1>
     <div class="grow">
-      <p class="text-sm text-slate-400">
-        {% if page.extra.authors %}
-          {% for author in page.extra.authors %}
-            {{ author }}{% if loop.last %}.{% else %},{% endif %}
-          {% endfor %}
-        {% elif bibdata.author %}
-          {{ bibdata.author }}
-        {% else %}
-          Unknown author. Refer to the documentation.
-        {% endif %}
-      </p>
+      <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
     </div>
     <div class="grow">
-      <p class="text-sm text-slate-400">{{ page.date |  date(format="%B %Y") }}</p>
+      <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata)}}</p>
     </div>
     <div class="grow pt-2"> 
       {% if page.extra.url_pdf %}
@@ -62,7 +51,7 @@
 
   {% if bibdata.abstract %}
   <p class="font-bold">Abstract</p>
-  <article class="prose prose-indigo prose max-w-3xl pb-4">{{ bibdata.abstract | safe }} </article>
+  <article class="prose prose-indigo max-w-3xl pb-4">{{ bibdata.abstract | safe }} </article>
   {% endif %}
 
   {% if plaintex %}
