@@ -19,20 +19,28 @@
   {% endif -%}
 {% endmacro -%}
 
-{% macro details(page, bibtags, sep=" • ") -%}
-  {{ page.date | date(format="%B %Y") }}
-  {% if bibtags.booktitle -%}{{ sep }}{{ bibtags.booktitle }}{% endif -%}
-  {% if bibtags.journal -%}{{ sep }}{{ bibtags.journal }}{% endif -%}
-  {% if bibtags.volume -%}{{ sep }}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{% endif -%}
-  {% if bibtags.pages -%}{{ sep }}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{% endif -%}
+{% macro abstract(page, bibtags) -%}
+  {% if page.extra.abstract -%}
+    {{ page.extra.abstract | markdown(inline=true) | safe }}
+  {% elif bibtags.abstract -%}
+    {{ bibtags.abstract }}
+  {% endif -%}
 {% endmacro -%}
 
-{% macro publication_summary(page) -%}
-{% set bibtex_path = publication::bibpath(page=page) -%}
-{% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
+{% macro details(page, bibtags, sep=", ") -%}{#" • "#}
+{% if bibtags.booktitle -%}{{ bibtags.booktitle }}{{ sep }}{% endif -%}
+{% if bibtags.journal -%}{{ bibtags.journal }}{{ sep }}{% endif -%}
+{{ page.date | date(format="%B %Y") -}}
+{% if bibtags.volume -%}{{ sep }}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{% endif -%}
+{% if bibtags.pages -%}{{ sep }}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{% endif -%}
+{% endmacro -%}
 
-{% if bibtex -%}
-  {% set bibdata = bibtex.bibliographies[0].tags -%}
+{% macro summary(page) -%}
+{% set bibdata = "" -%}
+{% set bibtex_path = publication::bibpath(page=page) -%}
+{% if bibtex_path -%}
+{% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
+{% if bibtex -%}{% set bibdata = bibtex.bibliographies[0].tags -%}{% endif -%}
 {% endif -%}
 
 {# {% if bibtex %}
@@ -49,7 +57,9 @@
       <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
     </div>
 
-    {% if bibdata.abstract -%}
+    {% if page.description -%}
+    <p class="text-sm"> {{ page.description | markdown(inline=true) | safe }} </p>
+    {% elif bibdata.abstract -%}
     <p class="text-sm"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
     <p class="text-sm text-slate-400 pb-4">{{publication::details(page=page, bibtags=bibdata)}}</p>

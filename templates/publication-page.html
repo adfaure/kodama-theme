@@ -14,10 +14,13 @@
 {% block content %}
 
 {% set bibtex_path = publication::bibpath(page=page) -%}
+{% set bibdata = "" -%}
+{% if bibtex_path -%}
 {% set plaintex = load_data(path=bibtex_path, required=false, format="plain") -%}
 {% if plaintex %}
   {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
   {% set bibdata = bibtex.bibliographies[0].tags -%}
+{% endif -%}
 {% endif -%}
 
 <div class="container max-w-3xl mx-auto px-4">
@@ -49,19 +52,25 @@
     </div>
   </div>
 
-  {% if bibdata.abstract %}
+  {% if page.description -%}
+  <article class="prose prose-indigo max-w-3xl pb-4">
+    {{ page.description | markdown(inline=true) | safe }}
+  </article>
+  {% endif -%}
+  {% set abstract = publication::abstract(page=page, bibtags=bibdata) -%}
+  {% if abstract -%}
   <p class="font-bold">Abstract</p>
-  <article class="prose prose-indigo max-w-3xl pb-4">{{ bibdata.abstract | safe }} </article>
-  {% endif %}
+  <article class="prose prose-indigo max-w-3xl pb-4">{{abstract | safe}}</article>
+  {% endif -%}
 
-  {% if plaintex %}
+  {% if plaintex -%}
   <div>
     <p class="font-bold">Bibtex</p>
     <div class="prose prose-indigo pb-4">
       <pre ><code class="select-all">{{ plaintex | safe }}</code></pre>
     </div>
   </div>
-  {% endif %}
+  {% endif -%}
 
 </div>
 {% endblock content %}

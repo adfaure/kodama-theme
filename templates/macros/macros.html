@@ -48,16 +48,20 @@
 {% macro section_index_summary(section_path, title="", show_wordcount=false, show_element=2, show_description=true) %}
   {% set section = get_section(path=section_path) %}
   <div class="flex sm:flex-row flex-col py-4">
-    <div class="sm:basis-3/5 grow pb-4 sm:pb-0">
+    <div class="sm:basis-2/5 grow pb-4 sm:pb-0">
       <div class="prose">
         <h2 class="">{{ title }} </h2>
       </div>
     </div>
-    <div class="sm:basis-2/5 grow">
+    <div class="sm:basis-3/5 grow">
       <ul>
-        {% for page in section.pages | slice(end=show_element) %}
+        {% for page in section.pages | slice(end=show_element) -%}
           <li class="pb-3">
-            {{ blog::page_summary(page=page, show_wordcount=show_wordcount, show_description=show_description) }}
+            {% if section.extra.publications_types -%}
+              {{ publication::summary(page=page) }}
+            {% else -%}
+              {{ blog::page_summary(page=page, show_wordcount=show_wordcount, show_description=show_description) }}
+            {% endif -%}
           </li>
         {% endfor %}
       </ul>
