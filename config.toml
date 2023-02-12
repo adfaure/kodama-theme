@@ -18,6 +18,7 @@ Education = "Education"
 toc = "Table of Contents"
 Published = "Published"
 volume = "volume"
+number = "number"
 pages = "pages"
 
 # Various slugification strategies, see below for details

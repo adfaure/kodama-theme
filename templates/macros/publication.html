@@ -28,11 +28,22 @@
 {% endmacro -%}
 
 {% macro details(page, bibtags, sep=", ") -%}{#" • "#}
-{% if bibtags.booktitle -%}{{ bibtags.booktitle }}{{ sep }}{% endif -%}
-{% if bibtags.journal -%}{{ bibtags.journal }}{{ sep }}{% endif -%}
-{{ page.date | date(format="%B %Y") -}}
-{% if bibtags.volume -%}{{ sep }}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{% endif -%}
-{% if bibtags.pages -%}{{ sep }}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{% endif -%}
+  {% if page.extra.publication  -%}
+    {% if page.extra.publication is string -%}
+      {{page.extra.publication | replace(from=", ", to=sep) -}}
+    {% else -%}
+      {{page.extra.publication | join(sep=sep) -}}
+    {% endif -%}
+  {% else -%}
+    {% if bibtags.booktitle -%}{{ bibtags.booktitle }}{{ sep }}{% endif -%}
+    {% if bibtags.journal -%}{{ bibtags.journal }}{{ sep }}{% endif -%}
+    {% if bibtags.volume -%}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{{ sep }}{% endif -%}
+    {% if bibtags.number -%}{{ trans(key="number", lang=lang) }} {{ bibtags.number }}{{ sep }}{% endif -%}
+    {% if bibtags.pages -%}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{{ sep }}{% endif -%}
+    {{ page.date | date(format="%B %Y") -}}
+    {% if bibtags.doi -%}{{ sep }} <a href="https://www.doi.org/{{bibtags.doi}}" target="
+    ">doi: {{ bibtags.doi }}</a>{% endif -%}
+  {% endif -%}
 {% endmacro -%}
 
 {% macro summary(page) -%}
