@@ -46,7 +46,7 @@
   {% endif -%}
 {% endmacro -%}
 
-{% macro summary(page) -%}
+{% macro summary(page, show_urls=true) -%}
 {% set bibdata = "" -%}
 {% set bibtex_path = publication::bibpath(page=page) -%}
 {% if bibtex_path -%}
@@ -61,33 +61,32 @@
 {% endif %} #}
 
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
-  <a  href="{{ page.permalink | safe }}">
-
+  <a href="{{ page.permalink | safe }}">
+    <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
     <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
-    <div class="pb-2">
-      <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
-    </div>
+    <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata)}}</p>
 
     {% if page.description -%}
-    <p class="text-sm"> {{ page.description | markdown(inline=true) | safe }} </p>
+    <p class="text-sm py-2"> {{ page.description | markdown(inline=true) | safe }} </p>
     {% elif bibdata.abstract -%}
-    <p class="text-sm"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
-    {% endif -%}
-    <p class="text-sm text-slate-400 pb-4">{{publication::details(page=page, bibtags=bibdata)}}</p>
-
-    {% if page.extra.url_pdf %}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
-    {% elif page.extra.pdf -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.pdf }}"> pdf </a>
+    <p class="text-sm py-2"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
 
-    {% if page.extra.url_slides %}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_slides }}"> slides </a>
-    {% elif page.extra.slides -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.slides }}"> slides </a>
-    {% endif -%}
-    {% if bibdata and bibdata.url -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
+    {% if show_urls -%}
+      {% if page.extra.url_pdf %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
+      {% elif page.extra.pdf -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.pdf }}"> pdf </a>
+      {% endif -%}
+
+      {% if page.extra.url_slides %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_slides }}"> slides </a>
+      {% elif page.extra.slides -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.slides }}"> slides </a>
+      {% endif -%}
+      {% if bibdata and bibdata.url -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
+      {% endif -%}
     {% endif -%}
   </a>
 </div>

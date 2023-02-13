@@ -59,7 +59,7 @@
   {% endif -%}
   {% set abstract = publication::abstract(page=page, bibtags=bibdata) -%}
   {% if abstract -%}
-  <p class="font-bold">Abstract</p>
+  <p class="font-bold">{{trans(key="Abstract", lang=lang)}}</p>
   <article class="prose prose-indigo max-w-3xl pb-4">{{abstract | safe}}</article>
   {% endif -%}
 
