@@ -1,10 +1,13 @@
 {% macro page_summary(page, show_wordcount=false, show_description=true) %}
+{% if page.extra.type -%} {# is this publication? -#}
+{{ publication::summary(page=page, show_urls=false, show_frame=false, show_description=show_description) }}
+{% else -%}
 {% if page.extra.external_link -%}
 <a href="{{ page.extra.external_link | safe }}" target="_blank">
 {% else -%}
 <a href="{{ page.permalink | safe }}">
 {% endif -%}
-  <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
+  <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
   {% if show_description -%}
   {% if page.extra.summary -%}
   <p class="pb-1"> {{ page.extra.summary | markdown(inline=true) | safe }} </p>
@@ -14,4 +17,5 @@
   {% endif -%}
   <p class="text-sm text-slate-400"> {{ page.date }} {% if show_wordcount == true -%} • wordcount: {{ page.word_count }} • {{ page.reading_time }} min read {% endif -%}</p>
 </a>
+{% endif -%}
 {% endmacros %}

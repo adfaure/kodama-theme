@@ -45,25 +45,24 @@
   </div>
 {% endmacro %}
 
-{% macro section_index_summary(section_path, title="", show_wordcount=false, show_element=2, show_description=true) %}
-  {% set section = get_section(path=section_path) %}
+{% macro section_index_summary(section_path, show_wordcount=false, show_element=2, show_description=true) %}
+  {% set section = get_section(path=section_path) -%}
+  {% set title = section.extra.index_title | default(value=section.title) -%}
   <div class="flex sm:flex-row flex-col py-4">
     <div class="sm:basis-2/5 grow pb-4 sm:pb-0">
       <div class="prose">
-        <h2 class="">{{ title }} </h2>
+        <h2>{{ title }}</h2>
+        {% if section.description -%}{{ section.description }}{% endif -%}
       </div>
     </div>
     <div class="sm:basis-3/5 grow">
       <ul>
         {% for page in section.pages | slice(end=show_element) -%}
           <li class="pb-3">
-            {% if section.extra.publications_types -%}
-              {{ publication::summary(page=page, show_urls=show_description) }}
-            {% else -%}
               {{ blog::page_summary(page=page, show_wordcount=show_wordcount, show_description=show_description) }}
-            {% endif -%}
           </li>
         {% endfor %}
+        <li><a href="{{section.permalink | safe}}" class="text-blue-600 hover:text-blue-800">...</a></li>
       </ul>
     </div>
   </div>

@@ -27,7 +27,7 @@
   {% endif -%}
 {% endmacro -%}
 
-{% macro details(page, bibtags, sep=", ") -%}{#" • "#}
+{% macro details(page, bibtags, sep=", ", links_allowed=true) -%}{#" • "#}
   {% if page.extra.publication  -%}
     {% if page.extra.publication is string -%}
       {{page.extra.publication | replace(from=", ", to=sep) -}}
@@ -41,12 +41,15 @@
     {% if bibtags.number -%}{{ trans(key="number", lang=lang) }} {{ bibtags.number }}{{ sep }}{% endif -%}
     {% if bibtags.pages -%}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{{ sep }}{% endif -%}
     {{ page.date | date(format="%B %Y") -}}
-    {% if bibtags.doi -%}{{ sep }} <a href="https://www.doi.org/{{bibtags.doi}}" target="
-    ">doi: {{ bibtags.doi }}</a>{% endif -%}
+    {% if bibtags.doi -%}{{ sep -}}
+      {% if links_allowed-%}<a href="https://www.doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
+      doi: {{ bibtags.doi -}}
+      {% if links_allowed-%}</a>{%endif-%}
+    {% endif -%}
   {% endif -%}
 {% endmacro -%}
 
-{% macro summary(page, show_urls=true) -%}
+{% macro summary(page, show_urls=true, show_frame=true, show_description=true) -%}
 {% set bibdata = "" -%}
 {% set bibtex_path = publication::bibpath(page=page) -%}
 {% if bibtex_path -%}
@@ -60,16 +63,18 @@
   {% endfor %}
 {% endif %} #}
 
+{% if show_frame -%}
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
+{% endif -%}
   <a href="{{ page.permalink | safe }}">
     <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
-    <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
-    <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata)}}</p>
+    <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
+    <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata, links_allowed=false)}}</p>
 
-    {% if page.description -%}
-    <p class="text-sm py-2"> {{ page.description | markdown(inline=true) | safe }} </p>
-    {% elif bibdata.abstract -%}
-    <p class="text-sm py-2"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
+    {% if show_description and page.description -%}
+    <p class="text-sm py-1"> {{ page.description | markdown(inline=true) | safe }} </p>
+    {% elif show_description and bibdata.abstract -%}
+    <p class="text-sm pb-1"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
 
     {% if show_urls -%}
@@ -89,5 +94,7 @@
       {% endif -%}
     {% endif -%}
   </a>
+{% if show_frame -%}
 </div>
+{% endif -%}
 {% endmacros %}
