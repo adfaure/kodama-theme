@@ -9,7 +9,6 @@
 <html lang="{{ lang | default(value=config.default_language)}}">
 
 <head>
-
   {% set favicon = resize_image(path=config.extra.favicon, format="png", width=32, height=32) %}
   <link rel="shortcut icon" href="{{ favicon.url }}" type="image/png">
   <link rel="icon" href="{{ favicon.url }}" type="image/png">
@@ -53,7 +52,6 @@
     </div>
   </footer>
   {% endblock footer -%}
-
 </body>
 
 </html>
