@@ -1,4 +1,4 @@
-{% macro nav(website_title, active_item="") %}
+{% macro nav(website_title) %}
 <nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
   <div id="progress" class="top-0"></div>
   <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
@@ -18,7 +18,7 @@
             {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
             {% if not ssection_data.extra.hidden_nav -%}
             <li class="mr-3 text-sm">
-              <a href={{ get_url(path=ssection_data.path, trailing_slash=false) }} class={%if ssection_data.title == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
+              <a href="{{ get_url(path=ssection_data.path, trailing_slash=false) }}" class={%if current_path and current_path is starting_with(ssection_data.path) %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
                 {{ssection_data.title}}
               </a>
             </li>
@@ -31,7 +31,7 @@
           {% endif -%}
           {% for item in menu_items -%}
           <li class="mr-3 text-sm">
-            <a href={{ get_url(path=item.path, trailing_slash=false, lang=lang) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
+            <a href={{ get_url(path=item.path, trailing_slash=false, lang=lang) }} class={%if current_path and current_path is starting_with(item.path) %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
               {{item.name}}
             </a>
           </li>

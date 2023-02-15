@@ -1,7 +1,7 @@
 +++
 title = "Adrien Faure"
 date = 2020-07-09
-page_template="simple-page.html"
+page_template="page.html"
 
 [extra]
 title = "Concise description"

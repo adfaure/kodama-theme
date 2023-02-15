@@ -5,11 +5,6 @@
 <title>{% if section -%}{{ section.title }} | {% endif %} {{ config.title }}</title>
 {% endblock title -%}
 
-{% block nav %}
-  {% set section = get_section(path=page.ancestors[1], metadata_only=true) %}
-  {{ macros_nav::nav(website_title=config.title, active_item=section.title) }}
-{% endblock nav %}
-
 {% block content %}
 <div class="container max-w-3xl mx-auto px-4">
   <div class="pt-8 flex">
