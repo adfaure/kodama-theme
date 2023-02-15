@@ -3,7 +3,9 @@
 {% block content %}
 <div class="container max-w-3xl mx-auto px-4">
   <div class="font-sans py-8">
-    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl"><a href="/{{taxonomy.name}}/">{{taxonomy.name}}</a> &gt; {{term.name}}</h1>
+    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">
+      <a href="/{{taxonomy.name}}/">{{ taxonomy.name }}</a> &gt; {{term.name}}
+    </h1>
   </div>
   <ul>
   {% for page in term.pages %}
