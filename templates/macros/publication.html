@@ -9,8 +9,16 @@
   {{page.title | default(value=bibtitle)}}
 {% endmacro -%}
 
-{% macro authors(page, bibtags) -%}
-  {% if page.extra.authors -%}
+{% macro authors(page, bibtags, links_allowed=true) -%}
+  {% if page.taxonomies.authors -%}
+    {% for author in page.taxonomies.authors -%}
+      {% if not loop.first %}, {% endif -%}
+      {% if links_allowed-%}<a href="{{ get_taxonomy_url(kind="authors", name=author, lang=page.lang) }}">{%endif-%}
+      {{ author -}}
+      {% if links_allowed-%}</a>{%endif-%}
+    {% endfor %}
+    {# page.taxonomies.authors | join(sep=", ") #}
+  {% elif page.extra.authors -%}
     {{ page.extra.authors | join(sep=", ") }}
   {% elif bibtags.author -%}
     {{ bibtags.author | replace(from=" and", to=",") }}
@@ -67,7 +75,7 @@
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
 {% endif -%}
   <a href="{{ page.permalink | safe }}">
-    <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
+    <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata, links_allowed=false)}}</p>
     <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
     <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata, links_allowed=false)}}</p>
 
