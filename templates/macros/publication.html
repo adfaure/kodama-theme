@@ -50,7 +50,7 @@
     {% if bibtags.pages -%}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{{ sep }}{% endif -%}
     {{ page.date | date(format="%B %Y") -}}
     {% if bibtags.doi -%}{{ sep -}}
-      {% if links_allowed-%}<a href="https://www.doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
+      {% if links_allowed-%}<a href="https://doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
       doi: {{ bibtags.doi -}}
       {% if links_allowed-%}</a>{%endif-%}
     {% endif -%}
