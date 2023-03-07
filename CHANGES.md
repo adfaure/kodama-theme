@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### Add block for header customization
+
+A new empty block in base.html named `user_head` as been added to customize the header (this is a good place to add javascript lib for instance).
+
+Example (file: `yoursite/templates/base.html`):
+
+```tera
+{% extends "kodama-theme/templates/base.html" %}
+
+{% block user_head %}
+<script>console.log("hello world!")</script>
+{% endblock user_head %}
+```
+
 #### Support for multilanguage site
 
 This new version adds the support for [multilanguage](https://www.getzola.org/documentation/content/multilingual/) site.
