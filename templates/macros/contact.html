@@ -1,12 +1,12 @@
 
 {% macro contact_list(title, links="", email="") %}
 <div class="flex sm:flex-row flex-col py-4">
-  <div class="sm:basis-3/5 grow pb-4 sm:pb-0">
+  <div class="sm:basis-2/5 grow pb-4 sm:pb-0">
     <div class="prose">
       <h2 class="">{{ title }}</h2>
     </div>
   </div>
-  <div class="sm:basis-2/5 grow">
+  <div class="sm:basis-3/5 grow">
     <ul>
       {% if email -%}
       <li class="font-bold text-lg pb-4 text-blue-600 hover:text-blue-800 visited:text-purple-600 flex-row flex-nowrap flex">

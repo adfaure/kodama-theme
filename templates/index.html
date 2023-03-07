@@ -11,7 +11,7 @@
         <img class="object-center w-52 h-52 rounded-full mx-auto" src="{{image.url}}" alt="Profile image"/>
         <h1 class="text-center font-bold break-normal text-gray-900 text-3xl py-1">{{ config.title }}</h1>
         {% if section.extra.title %}
-        <h2 class="text-center font-bold break-normal text-gray-400 text-lg py-1">{{ section.extra.title }}</h2>
+        <h2 class="text-center font-bold break-normal text-gray-400 text-lg py-1">{{ section.extra.title | markdown(inline=true) | safe }}</h2>
         {% endif %}
         <div class="flex flex-row flex-wrap container py-10 justify-center">
           {% for icon in section.extra.avatar_icons %}
@@ -23,13 +23,13 @@
       </div>
     </div>
     <div class="basis-full sm:basis-3/5">
-      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl sm:text-5xl pb-4">Biography</h1>
-      <article class="prose prose-indigo prose">
+      <h1 class="font-bold font-sans break-normal text-gray-900 text-3xl sm:text-5xl pb-4">{{trans(key="Biography", lang=lang)}}</h1>
+      <article class="prose prose-indigo">
       {{ section.content | safe }}
       </article>
       <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-4xl sm:py-10 py-4">
         <div class="basis-full sm:basis-1/2 pb-4">
-          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Interests</h2>
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">{{trans(key="Interests", lang=lang)}}</h2>
           <ul class="list-disc pl-4">
             {% for interest in section.extra.interests %}
             <li class="py-1"> {{ interest }} </li>
@@ -37,7 +37,7 @@
           </ul>
         </div>
         <div class="basis-full sm:basis-1/2">
-          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">Education</h2>
+          <h2 class="font-bold font-sans break-normal text-gray-900 text-2xl py-1">{{trans(key="Education", lang=lang)}}</h2>
           <ul class="">
             {% for course in section.extra.education.courses %}
             <li class="py-1">
@@ -66,11 +66,9 @@
   {% if ssection_data.extra.index_show -%}
       <div class="{% if index % 2 != 0%} bg-white {% else %} bg-gray-50 {% endif %}">
         <div class="container max-w-4xl mx-auto px-4 py-8">
-          {% set title = ssection_data.title -%}
-          {% if ssection_data.extra.index_title -%}
-            {% set title = ssection_data.extra.index_title -%}
-          {% endif %}
-          {{ macros::section_index_summary(section_path=ssection, title=title) }}
+          {% set index_elements = ssection_data.extra.index_elements | default(value=2) -%}
+          {% set show_description = ssection_data.extra.description_in_index | default(value=true) -%}
+          {{ macros::section_index_summary(section_path=ssection, show_element=index_elements, show_description=show_description) }}
         </div>
       </div>
     {% set_global index = index + 1 -%}

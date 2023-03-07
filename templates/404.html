@@ -8,17 +8,13 @@
 
 {% endblock head -%}
 
-{% block nav -%}
-  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item="404" ) }}
-{% endblock nav -%}
-
 {% block content -%}
 <div class="flex md:flex-row flex-wrap sm:flex-nowrap justify-center container mx-auto max-w-5xl py-10 px-3">
   <div class="basis-full">
     <div class="container mx-auto">
       <h1 class=" text-center font-bold break-normal text-gray-900 text-3xl py-8">The page you are looking for doesn't exist or has been removed.</h1>
 
-      <p class="text-center font-bold break-normal text-gray-900 py-1">Click <a class="text-1xl font-bold text-blue-600 hover:text-blue-800" visited:text-purple-600 href="{{ config.base_url }}">here</a> to return to the home page.</p>
+      <p class="text-center font-bold break-normal text-gray-900 py-1">Click <a class="text-xl font-bold text-blue-600 hover:text-blue-800" visited:text-purple-600 href="{{ config.base_url }}">here</a> to return to the home page.</p>
 
     </div>
   </div>

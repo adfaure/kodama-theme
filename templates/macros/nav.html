@@ -1,4 +1,4 @@
-{% macro nav(website_title, menu_items, active_item="") %}
+{% macro nav(website_title) %}
 <nav id="header" class="w-full z-10 top-0 shadow-md mx-0">
   <div id="progress" class="top-0"></div>
   <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
@@ -9,27 +9,39 @@
       </a>
     </div>
 
-    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto sm:block mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
+    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
       <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
           {# Get the upper section -#}
-          {% set index_section = get_section(path="_index.md", metadata_only=true) -%}
+          {% set dot_lang = macros::dot_lang() -%}
+          {% set index_section = get_section(path="_index"~dot_lang~".md", metadata_only=true) -%}
           {% for ssection in index_section.subsections -%}
             {% set ssection_data = get_section(path=ssection, metadata_only=true) -%}
             {% if not ssection_data.extra.hidden_nav -%}
             <li class="mr-3 text-sm">
-              <a href={{ get_url(path=ssection_data.path, trailing_slash=false) }} class={%if ssection_data.title == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
+              <a href="{{ get_url(path=ssection_data.path, trailing_slash=false) }}" class={%if current_path and current_path is starting_with(ssection_data.path) %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
                 {{ssection_data.title}}
               </a>
             </li>
             {% endif -%}
           {% endfor -%}
+          {% if lang == config.default_language -%}
+            {% set menu_items = config.extra.menu_items -%}
+          {% else -%}
+            {% set menu_items = config.extra[lang].menu_items -%}
+          {% endif -%}
           {% for item in menu_items -%}
           <li class="mr-3 text-sm">
-            <a href={{ get_url(path=item.path, trailing_slash=false) }} class={%if item.name == active_item %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
+            <a href={{ get_url(path=item.path, trailing_slash=false, lang=lang) }} class={%if current_path and current_path is starting_with(item.path) %}"inline-block py-2 px-4 text-sky-600 font-bold no-underline"{% else %}"inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"{%endif%}>
               {{item.name}}
             </a>
           </li>
           {% endfor -%}
+          {% set translations = section.translations | default(value=page.translations|default(value="")) -%}
+          {% for t in translations -%}{% if lang != t.lang -%}
+          <li class="mr-3 text-sm">
+            <a href="{{t.permalink}}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{t.lang}}</a>
+          </li>
+          {% endif -%}{% endfor -%}
       </ul>
     </div>
   </div>

@@ -1,38 +1,68 @@
 {% import 'macros/contact.html' as macros_contact -%}
 {% import 'macros/blog.html' as macros_blog -%}
 
+{% macro dot_lang() -%}
+  {% if lang == config.default_language -%}{{ "" }}{% else -%}{{ "." ~ lang }}{% endif -%}
+{% endmacro %}
+
+{% macro toc() -%}
+{% if page.toc and page.extra.toc -%}
+<div class="bg-gray-50 px-4 pb-1">
+<h2>{{trans(key="toc", lang=lang)}}</h2>
+<ul>
+  {% for h1 in page.toc -%}
+      <li>
+          <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+          {% if h1.children -%}
+              <ul>
+                  {% for h2 in h1.children -%}
+                      <li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
+                  {% endfor -%}
+              </ul>
+          {% endif -%}
+      </li>
+  {% endfor -%}
+</ul>
+</div>
+{% endif -%}
+{% endmacro %}
+
 {% macro contact_from_config(section, config) -%}
   {% set email = "" -%}
   {% if config.extra.email -%}
     {% set email = config.extra.email -%}
   {% endif -%}
 
-  {% set contact = get_page(path="./contacts.md", metadata_only=true) -%}
+  {% set dot_lang = macros::dot_lang() -%}
+  {% set contact = get_page(path="./contacts" ~dot_lang~ ".md", metadata_only=true) -%}
 
   {% set links = "" -%}
   {% if contact.extra.links -%}
     {% set links = contact.extra.links -%}
   {% endif -%}
   <a name="contacts"></a>
-  {{ macros_contact::contact_list(title="Contact", links=links, email=email) }}
+  {{ macros_contact::contact_list(title=contact.title, links=links, email=email) }}
   </div>
 {% endmacro %}
 
-{% macro section_index_summary(section_path, title="", show_wordcount=false, show_element=2) %}
-  {% set section = get_section(path=section_path) %}
+{% macro section_index_summary(section_path, show_wordcount=false, show_element=2, show_description=true) %}
+  {% set section = get_section(path=section_path) -%}
+  {% set title = section.extra.index_title | default(value=section.title) -%}
   <div class="flex sm:flex-row flex-col py-4">
-    <div class="sm:basis-3/5 grow pb-4 sm:pb-0">
+    <div class="sm:basis-2/5 grow pb-4 sm:pb-0">
       <div class="prose">
-        <h2 class="">{{ title }} </h2>
+        <h2>{{ title }}</h2>
+        {% if section.description -%}{{ section.description }}{% endif -%}
       </div>
     </div>
-    <div class="sm:basis-2/5 grow">
+    <div class="sm:basis-3/5 grow">
       <ul>
-        {% for page in section.pages | slice(end=show_element) %}
+        {% for page in section.pages | slice(end=show_element) -%}
           <li class="pb-3">
-            {{ blog::page_summary(page=page, show_wordcount=show_wordcount) }}
+              {{ blog::page_summary(page=page, show_wordcount=show_wordcount, show_description=show_description) }}
           </li>
         {% endfor %}
+        <li><a href="{{section.permalink | safe}}" class="text-blue-600 hover:text-blue-800">...</a></li>
       </ul>
     </div>
   </div>

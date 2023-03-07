@@ -5,23 +5,20 @@
 <title>{% if section -%}{{ section.title }} | {% endif %} {{ config.title }}</title>
 {% endblock title -%}
 
-{% block nav %}
-  {% set section = get_section(path=page.ancestors[1], metadata_only=true) %}
-  {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items, active_item=section.title) }}
-{% endblock nav %}
-
 {% block content %}
 <div class="container max-w-3xl mx-auto px-4">
-  <div class="pt-8 flex flex">
+  <div class="pt-8 flex">
     <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{ page.title }}</h1>
-    <p class="text-sm md:text-base font-normal text-gray-600 py-2">Published {{ page.date }}</p>
+    {% if page.date %}<p class="text-sm md:text-base font-normal text-gray-600 py-2">{{trans(key="Published", lang=lang)}} {{ page.date }}</p>{% endif %}
   </div>
   <hr class="border-b-1 border-gray-400 mb-8">
-  {% if page.extra.tldr %}
+  {% if page.extra.tldr -%}
   <p class="pb-4 text-gray-600"> <span class="font-bold">TLDR.</span> {{ page.extra.tldr | safe }} </p>
-  {% endif %}
-  <article class="prose prose-indigo prose max-w-3xl">
+  {% endif -%}
+  <article class="prose prose-indigo max-w-3xl">
+    {{ macros::toc() }}
     {{ page.content | safe }}
+    {% if page.extra.external_link %}<p><a href="{{page.extra.external_link | safe}}" target="_blank">{{page.extra.external_link | safe}}</a></p>{% endif -%}
   </article>
 </div>
 {% endblock content %}

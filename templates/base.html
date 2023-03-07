@@ -5,12 +5,10 @@
 {% import 'macros/blog.html' as blog -%}
 {% import 'macros/publication.html' as publication -%}
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang | default(value=config.default_language)}}">
 
 <head>
-
   {% set favicon = resize_image(path=config.extra.favicon, format="png", width=32, height=32) %}
   <link rel="shortcut icon" href="{{ favicon.url }}" type="image/png">
   <link rel="icon" href="{{ favicon.url }}" type="image/png">
@@ -31,7 +29,7 @@
     {% endblock css -%}
 
     {% block title -%}
-      {% set section =  load_data(path=current_path ~ "_index.md", metadata_only=true, required = false)  -%}
+      {% set section = load_data(path=current_path ~ "_index.md", metadata_only=true, required = false)  -%}
     {% endblock title -%}
   {% endblock head -%}
 </head>
@@ -39,7 +37,7 @@
 <body class="bg-white">
   <!-- Top nav bar -->
   {% block nav -%}
-    {{ macros_nav::nav(website_title=config.title, menu_items=config.extra.menu_items) }}
+    {{ macros_nav::nav(website_title=config.title) }}
   {% endblock nav -%}
   <!-- Container -->
   {% block content -%}
@@ -54,7 +52,6 @@
     </div>
   </footer>
   {% endblock footer -%}
-
 </body>
 
 </html>

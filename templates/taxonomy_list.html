@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container max-w-3xl mx-auto px-4">
+  <div class="font-sans py-8">
+    <h1 class="font-bold font-sans break-normal text-gray-900 pb-2 text-3xl md:text-4xl">{{taxonomy.name}}</h1>
+  </div>
+  <ul>
+  {% for term in terms %}
+    <li class="pb-3">
+        <a href="{{ term.permalink | safe }}">{{term.name}}</a>
+    </li>
+  {% endfor %}
+  </ul>
+</div>
+{% endblock content %}

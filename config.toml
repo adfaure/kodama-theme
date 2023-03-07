@@ -11,6 +11,17 @@ version = "1.0.1"
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
 
+[translations]
+Biography = "Biography"
+Interests = "Interests"
+Education = "Education"
+toc = "Table of Contents"
+Published = "Published"
+Abstract = "Abstract"
+volume = "volume"
+number = "number"
+pages = "pages"
+
 # Various slugification strategies, see below for details
 # Defaults to everything being a slug
 [slugify]

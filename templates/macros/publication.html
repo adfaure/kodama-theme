@@ -1,9 +1,68 @@
-{% macro publication_summary(page) -%}
-{% set bibtex_path = page.path ~ "bib" -%}
-{% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
+{% macro bibpath(page) -%}
+{% for asset in page.assets -%}
+  {% if asset is ending_with("bib") -%}{{asset}}{% break -%}{% endif -%}
+{% endfor -%}
+{% endmacro -%}
 
-{% if bibtex -%}
-  {% set bibdata = bibtex.bibliographies[0].tags -%}
+{% macro title(page, bibtags) -%}
+  {% set bibtitle = bibtags.title | default(value="") -%}
+  {{page.title | default(value=bibtitle)}}
+{% endmacro -%}
+
+{% macro authors(page, bibtags, links_allowed=true) -%}
+  {% if page.taxonomies.authors -%}
+    {% for author in page.taxonomies.authors -%}
+      {% if not loop.first %}, {% endif -%}
+      {% if links_allowed-%}<a href="{{ get_taxonomy_url(kind="authors", name=author, lang=page.lang) }}">{%endif-%}
+      {{ author -}}
+      {% if links_allowed-%}</a>{%endif-%}
+    {% endfor %}
+    {# page.taxonomies.authors | join(sep=", ") #}
+  {% elif page.extra.authors -%}
+    {{ page.extra.authors | join(sep=", ") }}
+  {% elif bibtags.author -%}
+    {{ bibtags.author | replace(from=" and", to=",") }}
+  {% else -%}
+    Unknown author. Refer to the documentation.
+  {% endif -%}
+{% endmacro -%}
+
+{% macro abstract(page, bibtags) -%}
+  {% if page.extra.abstract -%}
+    {{ page.extra.abstract | markdown(inline=true) | safe }}
+  {% elif bibtags.abstract -%}
+    {{ bibtags.abstract }}
+  {% endif -%}
+{% endmacro -%}
+
+{% macro details(page, bibtags, sep=", ", links_allowed=true) -%}{#" • "#}
+  {% if page.extra.publication  -%}
+    {% if page.extra.publication is string -%}
+      {{page.extra.publication | replace(from=", ", to=sep) -}}
+    {% else -%}
+      {{page.extra.publication | join(sep=sep) -}}
+    {% endif -%}
+  {% else -%}
+    {% if bibtags.booktitle -%}{{ bibtags.booktitle }}{{ sep }}{% endif -%}
+    {% if bibtags.journal -%}{{ bibtags.journal }}{{ sep }}{% endif -%}
+    {% if bibtags.volume -%}{{ trans(key="volume", lang=lang) }} {{ bibtags.volume }}{{ sep }}{% endif -%}
+    {% if bibtags.number -%}{{ trans(key="number", lang=lang) }} {{ bibtags.number }}{{ sep }}{% endif -%}
+    {% if bibtags.pages -%}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{{ sep }}{% endif -%}
+    {{ page.date | date(format="%B %Y") -}}
+    {% if bibtags.doi -%}{{ sep -}}
+      {% if links_allowed-%}<a href="https://doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
+      doi: {{ bibtags.doi -}}
+      {% if links_allowed-%}</a>{%endif-%}
+    {% endif -%}
+  {% endif -%}
+{% endmacro -%}
+
+{% macro summary(page, show_urls=true, show_frame=true, show_description=true) -%}
+{% set bibdata = "" -%}
+{% set bibtex_path = publication::bibpath(page=page) -%}
+{% if bibtex_path -%}
+{% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
+{% if bibtex -%}{% set bibdata = bibtex.bibliographies[0].tags -%}{% endif -%}
 {% endif -%}
 
 {# {% if bibtex %}
@@ -12,43 +71,38 @@
   {% endfor %}
 {% endif %} #}
 
+{% if show_frame -%}
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
-  <a  href="{{ page.permalink | safe }}">
+{% endif -%}
+  <a href="{{ page.permalink | safe }}">
+    <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata, links_allowed=false)}}</p>
+    <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
+    <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata, links_allowed=false)}}</p>
 
-    <h2 class="text-1xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
-    <div class="pb-2">
-      <p class="text-sm text-slate-400">
-        {% if page.extra.authors -%}
-        {% for author in page.extra.authors -%}
-          {{ author }}{% if loop.last -%}.{% else -%},{% endif -%}
-        {% endfor %}
-        {% elif bibdata.author -%}
-          {{ bibdata.author }}
-        {% else %}
-          Unknown author. Refer to the documentation.
-        {% endif -%}
-      </p>
-    </div>
-
-    {% if bibdata.abstract -%}
-    <p class="text-sm"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
-    {% endif -%}
-    <p class="text-sm text-slate-400 pb-4">{{ page.date |  date(format="%B %Y") }}  {% if bibdata.booktitle %} • {{  bibdata.booktitle }}{% endif %}</p>
-
-    {% if page.extra.url_pdf %}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
-    {% elif page.extra.pdf -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.pdf }}"> pdf </a>
+    {% if show_description and page.description -%}
+    <p class="text-sm py-1"> {{ page.description | markdown(inline=true) | safe }} </p>
+    {% elif show_description and bibdata.abstract -%}
+    <p class="text-sm pb-1"> {{ bibdata.abstract | safe | truncate(length=250) }} </p>
     {% endif -%}
 
-    {% if page.extra.url_slides %}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_slides }}"> slides </a>
-    {% elif page.extra.slides -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.slides }}"> slides </a>
-    {% endif -%}
-    {% if bibdata and bibdata.url -%}
-    <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
+    {% if show_urls -%}
+      {% if page.extra.url_pdf %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
+      {% elif page.extra.pdf -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.pdf }}"> pdf </a>
+      {% endif -%}
+
+      {% if page.extra.url_slides %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_slides }}"> slides </a>
+      {% elif page.extra.slides -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ config.base_url ~ page.path ~ page.extra.slides }}"> slides </a>
+      {% endif -%}
+      {% if bibdata and bibdata.url -%}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
+      {% endif -%}
     {% endif -%}
   </a>
+{% if show_frame -%}
 </div>
+{% endif -%}
 {% endmacros %}
