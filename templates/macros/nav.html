@@ -4,7 +4,11 @@
   <!-- <div class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between mt-0 py-2  sm:bg-green-900 md:bg-red-900 lg:bg-blue-900 bg-yellow-900"> -->
   <div class="w-full max-w-4xl mx-auto flex sm:flex-nowrap flex-wrap items-center justify-between mt-0 py-2">
     <div class="pl-4">
-      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="{{ config.base_url }}">
+      {%set lang_base="" -%}
+      {%if lang != config.default_language-%}
+        {%set lang_base=lang%}
+      {%endif-%}
+      <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold" href="{{ config.base_url }}{{lang_base}}">
         {{ website_title }}
       </a>
     </div>
@@ -36,15 +40,39 @@
             </a>
           </li>
           {% endfor -%}
-          {% set translations = section.translations | default(value=page.translations|default(value="")) -%}
-          {% for t in translations -%}{% if lang != t.lang -%}
-          <li class="mr-3 text-sm">
-            <a href="{{t.permalink}}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{t.lang}}</a>
-          </li>
-          {% endif -%}{% endfor -%}
+
+          {#Get the translations for this section if any-#}
+          {% set translations = section.translations | default(value=page.translations|default(value=[])) -%}
+
+          {%set langs = config.extra.language_codes | default(value=[]) -%}
+          {%for trans_code in langs -%}
+            {#Find if a translation exist for this section -#}
+            {% set other_lang = translations | filter(attribute="lang", value=trans_code) | first -%}
+
+            {#
+              Now the objective of this if/elif/if is to ensure that we have a link to other languages at the end of the navbar
+              We perform the following checks in this order:
+              1) Put a link to the direct translation of the page if exist
+              2) else Put a link to the home page of the language
+              3) Put a link to the home page of the language
+            -#}
+            {% if other_lang and other_lang.lang != lang -%}
+            <li class="mr-3 text-sm">
+              <a href="{{other_lang.permalink}}" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{trans_code}}</a>
+            </li>
+            {% elif trans_code != lang and trans_code != config.default_language -%}
+            <li class="mr-3 text-sm">
+              <a href="/{{trans_code}}/" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{trans_code}}</a>
+            </li>
+            {%elif trans_code != lang -%}
+            <li class="mr-3 text-sm">
+              <a href="/" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4">{{trans_code}}</a>
+            </li>
+            {%endif-%}
+          {% endfor -%}
+
       </ul>
     </div>
   </div>
-
 </nav>
 {% endmacro %}
