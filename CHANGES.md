@@ -62,14 +62,13 @@ menu_items = [
 ]
 ```
 
-### Removed
-
-- The macro nav takes only one parameter now (the title of the website).
-
 ### Changed
 
 - The template `blog.html` has been renamed to `section.html`
+- The macro nav takes only one parameter now (the title of the website).
 - Many refactor and code cleaning
+
+### Removed
 
 ## [1.0.1]
 
