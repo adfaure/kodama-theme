@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Add block for header customization
 
-A new empty block in base.html named `user_head` as been added to customize the header (this is a good place to add javascript lib for instance).
+A new empty block in base.html named `user_head` has been added to customize the header (this is a good place to add javascript lib for instance).
 
 Example (file: `yoursite/templates/base.html`):
 
@@ -26,16 +26,24 @@ Example (file: `yoursite/templates/base.html`):
 
 This new version adds the support for [multilanguage](https://www.getzola.org/documentation/content/multilingual/) site.
 
-**If you don't need it, the only change that you need to do is to is to add the following content to your `config.toml` file.**
+##### If you don't need it
+
+The only change that you need to do is to is to add the following content to your `config.toml` file.
 
 ```toml
 [translations]
 Biography = "Biography"
-Published = "Published"
 Interests = "Interests"
 Education = "Education"
+toc = "Table of Contents"
+Published = "Published"
 Abstract = "Abstract"
+volume = "volume"
+number = "number"
+pages = "pages"
 ```
+
+##### If you want to add a new translation
 
 A new translation can be added following the zola official documentation.
 The only requirements are:
@@ -58,9 +66,9 @@ menu_items = [
 
 - The macro nav takes only one parameter now (the title of the website).
 
-
 ### Changed
 
+- The template `blog.html` has been renamed to `section.html`
 - Many refactor and code cleaning
 
 ## [1.0.1]
