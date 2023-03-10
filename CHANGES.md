@@ -6,14 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+New major release, that adds multilanguage support, and a new template block that can be override by users.
+And, some (small) breaking changes have been done so check the changelog to upgrade your site.
+
 ### Added
 
 #### Add block for header customization
 
-A new empty block in base.html named `user_head` has been added to customize the header (this is a good place to add javascript lib for instance).
+A new empty block in base.html named `user_head` has been added allows users to customize the head of their pages easily. You can now add custom meta tags, CSS, and JavaScript to the head of their pages.
 
 Example (file: `yoursite/templates/base.html`):
-
 ```tera
 {% extends "kodama-theme/templates/base.html" %}
 
@@ -24,7 +26,8 @@ Example (file: `yoursite/templates/base.html`):
 
 #### Support for multilanguage site
 
-This new version adds the support for [multilanguage](https://www.getzola.org/documentation/content/multilingual/) site.
+Added support for multilanguage thanks to [Piotr Beling](https://github.com/beling).
+The zola documentation can now be used to add a new languages, [multilanguage](https://www.getzola.org/documentation/content/multilingual/).
 
 ##### If you don't need it
 
