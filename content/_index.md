@@ -1,10 +1,10 @@
 +++
-title = "Adrien Faure"
+title = "Kodama"
 date = 2020-07-09
 page_template="page.html"
 
 [extra]
-title = "Concise description"
+title = ""
 
 interests = [
   "Rainbow pony",

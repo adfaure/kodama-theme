@@ -48,5 +48,27 @@ contact_in_index = true
 # Additional menu items
 # `Name` is what it is displayed, `path` is the url
 menu_items = [
-  { path = "#contacts", name = "Contact" },
+   { path = "#contacts", name = "Contact" },
 ]
+
+# Translation related extra
+language_codes = [ "en", "fr" ]
+
+[extra.fr]
+contact_in_index = false
+menu_items = [
+  # { path = "#contacts_fr", name = "Contact" },
+]
+
+# Your translations
+[languages.fr]
+title = "Kodama"
+
+[languages.fr.translations]
+Biography = "Bio"
+Interests = "Interêts"
+Education = "Formation"
+Published = "Publication"
+Abstract = "Résumé"
+
+
