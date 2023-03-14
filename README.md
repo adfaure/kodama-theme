@@ -58,6 +58,12 @@ The resulting file `static/styles/styles.css` is loaded in the html.
 
 *Note that, for the moment the generation of the css is not automated. As a result, it is necessary to re-run this command when changes are made with the styling.*
 
+
+## Forms
+
+
+[Add Github pages contact form](https://fabform.io/a/create-a-static-website-with-contact-form-on-github-pages)
+
 ## Configuration
 
 This theme use some extra configuration, that can be set in the extra section of your `config.toml`.
