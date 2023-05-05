@@ -9,7 +9,6 @@ authors = [ "Kodama Mononoke" ]
 publication_types = "Conference paper"
 featured = true
 publication = "2020 IEE rainbow workshop"
-type="conferences"
 url_pdf = "path_to_pdf"
 url_slides = "path_to_slides"
 +++
