@@ -37,8 +37,8 @@ highlight_theme = "base16-ocean-dark"
 
 [extra]
 
-avatar = "static/img/avatar.jpg"
-favicon = "static/img/avatar.jpg"
+avatar = "img/avatar.jpg"
+favicon = "img/avatar.jpg"
 
 # Enter your email
 email = "kodama[at]domain.com"
