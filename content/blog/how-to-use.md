@@ -188,6 +188,18 @@ sort_by = "date"
 # Here the two dedicated templates
 template = "publications.html"
 page_template = "publication-page.html"
+
+# Configure sections under which your publications will be displayed
+extra.publications_types = [
+  { title = "Journal articles", type = "journals" },
+  { title = "Thesis", type = "thesis" },
+  { title = "Conferences and workshops ", type = "conferences" },
+  { title = "Preprints", type = "preprint" }
+]
+
+# To assign a publication to a section,
+# add the variable `extra.type = "type-you-want"` to the frontmatter of your publications
+
 +++
 
 ## Content
@@ -201,10 +213,10 @@ tree content/research
 content/research
 ├── _index.md
 ├── paper1
-│   ├── bib
+│   ├── data.bib
 │   └── index.md
 └── thesis
-    ├── bib
+    ├── data.bib
     ├── index.md
     ├── thesis.pdf
     └── thesis_slides.pdf
@@ -218,7 +230,7 @@ title = "Article 1"
 date = 2021-05-18
 
 [extra]
-type = "Conference"
+type = "conferences"
 authors = [ "Kodama Mononoke" ]
 publication_types = "Conference paper"
 featured = true
