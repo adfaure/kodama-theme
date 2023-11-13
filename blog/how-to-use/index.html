@@ -205,6 +205,18 @@ The articles are showed in two subcategories: Thesis and Conference / Workshop.<
 </span><span style="color:#8fa1b3;"># Here the two dedicated templates
 </span><span>template = &quot;publications.html&quot;
 </span><span>page_template = &quot;publication-page.html&quot;
+</span><span>
+</span><span style="color:#8fa1b3;"># Configure sections under which your publications will be displayed
+</span><span>extra.publications_types = [
+</span><span>  { title = &quot;Journal articles&quot;, type = &quot;journals&quot; },
+</span><span>  { title = &quot;Thesis&quot;, type = &quot;thesis&quot; },
+</span><span>  { title = &quot;Conferences and workshops &quot;, type = &quot;conferences&quot; },
+</span><span>  { title = &quot;Preprints&quot;, type = &quot;preprint&quot; }
+</span><span>]
+</span><span>
+</span><span style="color:#8fa1b3;"># To assign a publication to a section,
+</span><span style="color:#8fa1b3;"># add the variable </span><span style="color:#a3be8c;">`extra.type = &quot;type-you-want&quot;`</span><span style="color:#8fa1b3;"> to the frontmatter of your publications
+</span><span>
 </span><span>+++
 </span><span>
 </span><span style="color:#8fa1b3;">## Content
@@ -216,10 +228,10 @@ The articles are showed in two subcategories: Thesis and Conference / Workshop.<
 </span><span>content/research
 </span><span>├── _index.md
 </span><span>├── paper1
-</span><span>│   ├── bib
+</span><span>│   ├── data.bib
 </span><span>│   └── index.md
 </span><span>└── thesis
-</span><span>    ├── bib
+</span><span>    ├── data.bib
 </span><span>    ├── index.md
 </span><span>    ├── thesis.pdf
 </span><span>    └── thesis_slides.pdf
@@ -230,7 +242,7 @@ The articles are showed in two subcategories: Thesis and Conference / Workshop.<
 </span><span>date = 2021-05-18
 </span><span>
 </span><span>[extra]
-</span><span>type = &quot;Conference&quot;
+</span><span>type = &quot;conferences&quot;
 </span><span>authors = [ &quot;Kodama Mononoke&quot; ]
 </span><span>publication_types = &quot;Conference paper&quot;
 </span><span>featured = true
