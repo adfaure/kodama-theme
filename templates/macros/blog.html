@@ -10,7 +10,7 @@
   <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{ page.title }}</h2>
   {% if show_description -%}
   {% if page.extra.summary -%}
-  <p class="pb-1"> {{ page.extra.summary | markdown(inline=true) | safe }} </p>
+  <p class="pb-1"> {{ page.summary | markdown(inline=true) | safe }} </p>
   {% elif page.description %}
   <p class="pb-1"> {{ page.description | markdown(inline=true) | safe }} </p>
   {% endif -%}

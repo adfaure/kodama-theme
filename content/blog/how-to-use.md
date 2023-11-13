@@ -1,6 +1,10 @@
 +++
 title = "How to use this theme"
 date = 2022-03-16
+
+# Show zola summary instead
+# extra.summary = "true"
+
 description = """
 Example of how to use kodama theme.
 """
