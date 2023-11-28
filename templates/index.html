@@ -79,12 +79,12 @@
   {% block index_contact -%}
 
     {% if lang == config.default_language -%}
-      {% set contact_in_index = config.extra.menu_items -%}
+      {% set contact_data = config.extra.menu_items -%}
     {% else -%}
-      {% set contact_in_index = config.extra[lang].menu_items -%}
+      {% set contact_data = config.extra[lang].menu_items -%}
     {% endif -%}
 
-    {% if contact_in_index and contact_in_index == true -%}
+    {% if config.extra.contact_in_index == true -%}
     <div class="{% if index % 2 != 0%} bg-white {% else %} bg-gray-50 {% endif %}">
       <div class="container max-w-4xl mx-auto px-4">
       {{ macros::contact_from_config(section=section, config=config) }}
