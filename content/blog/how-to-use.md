@@ -169,7 +169,7 @@ The section `blog` is the most standard section. It show a list of article with 
 To use the blog template, configure the section with the following front matter:
 
 ```toml
-template = "blog.html"
+template = "section.html"
 page_template = "blog-page.html"
 ```
 
