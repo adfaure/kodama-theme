@@ -33,7 +33,7 @@
       </a>
     </div>
 
-    <div class="w-full flex-grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
+    <div class="w-full grow sm:flex sm:items-center flex-wrap sm:flex-nowrap sm:w-auto mt-2 sm:mt-0 bg-transparent z-20" id="nav-content">
       <ul class="list-reset flex flex-wrap sm:justify-end flex-1 items-center">
           <li class="mr-3 text-sm">
               <a href="https://adfaure.github.io/kodama-theme/blog" class="inline-block py-2 px-4 text-sky-600 font-bold no-underline">
@@ -65,7 +65,7 @@
     <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">How to use this theme</h1>
     <p class="text-sm md:text-base font-normal text-gray-600 py-2">Published 2022-03-16</p>
   </div>
-  <hr class="border-b-1 border-gray-400 mb-8">
+  <hr class="border-b border-gray-400 mb-8">
   <article class="prose prose-indigo max-w-3xl">
     
     <h2 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">🔗</a></h2>
@@ -76,7 +76,7 @@
 <li>It has no javascript.</li>
 <li>The CSS is built with <a href="https://tailwindcss.com/">tailwindcss</a>.
 <ul>
-<li>The blog articles are themed with <a href="https://tailwindcss.com/docs/typography-plugin">@tailwindcss/typography</a> theme.</li>
+<li>The blog articles are themed with <a href="https://tailwindcss-typography.vercel.app">@tailwindcss/typography</a> theme.</li>
 </ul>
 </li>
 </ul>
@@ -91,20 +91,18 @@
 <p><a href="https://tailwindcss.com/">Tailwindcss</a> is a framework that parses your html files, and generate the minimal CSS required.
 This theme depends on this framework.</p>
 <p>The theme comes with the precompiled style files (<code>static/styles/styles.css</code>). However, if you wish to change the style, or modify the template html, you might need to recompile your styles.</p>
-<p>The most simple way, is to follow the <a href="https://tailwindcss.com/docs/installation">installation page of tailwindcss</a>.</p>
-<p>At the end, you should have tailwindcss installed, and I advise to use the following tailwind configuration:</p>
+<p>The most simple way, is to follow the <a href="https://tailwindcss.com/docs/installation/">installation page of tailwindcss</a>.</p>
+<p>At the end, you should have tailwindcss installed, and I advise to use the following tailwind configuration (for tailwindcss v4)</p>
 <pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span># </span><span style="color:#bf616a;">tailwind</span><span>.</span><span style="color:#bf616a;">config</span><span>.</span><span style="color:#bf616a;">js
 </span><span>module.exports = {
 </span><span>  content: [&quot;</span><span style="color:#a3be8c;">./templates/**/*.html</span><span>&quot;, &quot;</span><span style="color:#a3be8c;">./themes/**/*.html</span><span>&quot;,  &quot;</span><span style="color:#a3be8c;">./themes/**/*.html</span><span>&quot;],
-</span><span>  theme: {},
-</span><span>  variants: {},
-</span><span>  plugins: [
-</span><span>      </span><span style="color:#96b5b4;">require</span><span>(&#39;</span><span style="color:#a3be8c;">@tailwindcss/typography</span><span>&#39;),
-</span><span>  ],
 </span><span>};
 </span></code></pre>
 <p>Create a file <code>styles/styles.css</code>, and use the following command to generate the final CSS file:</p>
 <pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>npx tailwindcss -i styles/styles.css -o static/styles/styles.css
+</span></code></pre>
+<p>or, starting with tailwindcss v4.0, the separate CLI command</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>npx @tailwindcss/cli -i styles/styles.css -o static/styles/styles.css
 </span></code></pre>
 <p>The resulting file <code>static/styles/styles.css</code> is loaded in the html.</p>
 <p><em>Note that, for the moment the generation of the css is not automated. As a result, it is necessary to re-run this command when changes are made with the styling.</em></p>
