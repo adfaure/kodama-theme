@@ -100,6 +100,10 @@
       {% if bibdata and bibdata.url -%}
       <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{bibdata.url}}"> url </a>
       {% endif -%}
+
+      {% if page.extra.code %}
+      <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.code }}"> code </a>
+      {% endif -%}
     {% endif -%}
   </a>
 {% if show_frame -%}
