@@ -73,9 +73,10 @@ theme = "kodama-theme"
 [extra]
 
 # Image of your avatar displayed on the landing page
-avatar = "static/img/avatar.jpg"
+# Uncomment and set your path relative to static/
+# avatar = "img/avatar.jpg"
 # Image of the favicon
-favicon = "static/img/avatar.jpg"
+# favicon = "img/avatar.jpg"
 
 # Your email address showed in the contact section
 email = "kodama[at]domain.com"

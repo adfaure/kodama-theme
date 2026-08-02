@@ -36,8 +36,9 @@ highlight_theme = "base16-ocean-dark"
 [extra]
 version = "1.0.1"
 
-avatar = "img/avatar.jpg"
-favicon = "img/avatar.jpg"
+# Uncomment and provide your image paths relative to the static/ directory
+# avatar = "img/avatar.jpg"
+# favicon = "img/avatar.jpg"
 
 # Enter your email
 email = "kodama[at]domain.com"
