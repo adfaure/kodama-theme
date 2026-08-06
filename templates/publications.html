@@ -19,7 +19,7 @@
     {% for page in section.pages  -%}
       {% if page.extra.type == publication_type.type -%}
       <li class="pb-3">
-        {{ publication::summary(page=page) }}
+        {{<publication.summary config={config} page={page} lang={lang}/>}}
       </li>
       {% endif  -%}
     {% endfor -%}

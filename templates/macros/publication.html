@@ -1,21 +1,21 @@
-{% macro bibpath(page) -%}
+{% component publication.bibpath(page) -%}
 {% for asset in page.assets -%}
-  {% if asset is ending_with("bib") -%}{{asset}}{% break -%}{% endif -%}
+  {% if asset is ending_with(pat="bib") -%}{{asset}}{% break -%}{% endif -%}
 {% endfor -%}
-{% endmacro -%}
+{% endcomponent publication.bibpath %}
 
-{% macro title(page, bibtags) -%}
+{% component publication.title(page, bibtags) -%}
   {% set bibtitle = bibtags.title | default(value="") -%}
   {{page.title | default(value=bibtitle)}}
-{% endmacro -%}
+{% endcomponent publication.title -%}
 
-{% macro authors(page, bibtags, links_allowed=true) -%}
+{% component publication.authors(page, bibtags, links_allowed: bool = true) -%}
   {% if page.taxonomies.authors -%}
     {% for author in page.taxonomies.authors -%}
       {% if not loop.first %}, {% endif -%}
-      {% if links_allowed-%}<a href="{{ get_taxonomy_url(kind="authors", name=author, lang=page.lang) }}">{%endif-%}
+      {% if links_allowed -%}<a href="{{ get_taxonomy_url(kind="authors", name=author, lang=page.lang) }}">{%endif-%}
       {{ author -}}
-      {% if links_allowed-%}</a>{%endif-%}
+      {% if links_allowed -%}</a>{%endif-%}
     {% endfor %}
     {# page.taxonomies.authors | join(sep=", ") #}
   {% elif page.extra.authors -%}
@@ -25,17 +25,17 @@
   {% else -%}
     Unknown author. Refer to the documentation.
   {% endif -%}
-{% endmacro -%}
+{% endcomponent publication.authors -%}
 
-{% macro abstract(page, bibtags) -%}
+{% component publication.abstract(page, bibtags) -%}
   {% if page.extra.abstract -%}
     {{ page.extra.abstract | markdown(inline=true) | safe }}
   {% elif bibtags.abstract -%}
     {{ bibtags.abstract }}
   {% endif -%}
-{% endmacro -%}
+{% endcomponent publication.abstract -%}
 
-{% macro details(page, bibtags, sep=", ", links_allowed=true) -%}{#" • "#}
+{% component publication.details(page, bibtags, lang: string, sep: string = ", ", links_allowed: bool = true) -%}{#" • "#}
   {% if page.extra.publication  -%}
     {% if page.extra.publication is string -%}
       {{page.extra.publication | replace(from=", ", to=sep) -}}
@@ -50,16 +50,16 @@
     {% if bibtags.pages -%}{{ trans(key="pages", lang=lang) }} {{ bibtags.pages | replace(from="--", to="&ndash;") | safe }}{{ sep }}{% endif -%}
     {{ page.date | date(format="%B %Y") -}}
     {% if bibtags.doi -%}{{ sep -}}
-      {% if links_allowed-%}<a href="https://doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
+      {% if links_allowed -%}<a href="https://doi.org/{{bibtags.doi}}" target="_blank">{%endif-%}
       doi: {{ bibtags.doi -}}
-      {% if links_allowed-%}</a>{%endif-%}
+      {% if links_allowed -%}</a>{%endif-%}
     {% endif -%}
   {% endif -%}
-{% endmacro -%}
+{% endcomponent publication.details -%}
 
-{% macro summary(page, show_urls=true, show_frame=true, show_description=true) -%}
+{% component publication.summary(config, page, lang: string, show_urls: bool = true, show_frame: bool = true, show_description: bool = true) -%}
 {% set bibdata = "" -%}
-{% set bibtex_path = publication::bibpath(page=page) -%}
+{% set bibtex_path = <publication.bibpath page={page}/> -%}
 {% if bibtex_path -%}
 {% set bibtex = load_data(path=bibtex_path, required=false, format="bibtex") -%}
 {% if bibtex -%}{% set bibdata = bibtex.bibliographies[0].tags -%}{% endif -%}
@@ -75,9 +75,9 @@
 <div class="py-4 px-8 bg-white shadow-lg rounded-lg hover:shadow-xl">
 {% endif -%}
   <a href="{{ page.permalink | safe }}">
-    <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata, links_allowed=false)}}</p>
-    <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{publication::title(page=page, bibtags=bibdata)}}</h2>
-    <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata, links_allowed=false)}}</p>
+    <p class="text-sm text-slate-400">{{<publication.authors page={page} bibtags={bibdata} links_allowed={false}/>}}</p>
+    <h2 class="text-xl font-bold text-blue-600 hover:text-blue-800 visited:text-purple-600">{{<publication.title page={page} bibtags={bibdata}/>}}</h2>
+    <p class="text-sm text-slate-400">{{<publication.details page={page} bibtags={bibdata} lang={lang} links_allowed={false}/>}}</p>
 
     {% if show_description and page.description -%}
     <p class="text-sm py-1"> {{ page.description | markdown(inline=true) | safe }} </p>
@@ -105,4 +105,4 @@
 {% if show_frame -%}
 </div>
 {% endif -%}
-{% endmacros %}
+{% endcomponent publication.summary %}

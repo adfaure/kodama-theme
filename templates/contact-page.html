@@ -3,6 +3,6 @@
 {% block content %}
 <div class="container max-w-3xl mx-auto px-3">
   <div class="mb-8"></div>
-  {{ macros::contact_from_config(section=section, config=config) }}
+  {{<macros.contact_from_config config={config} lang={lang}/>}}
 </div>
 {% endblock content %}

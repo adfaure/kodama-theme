@@ -7,7 +7,7 @@
 
 {% block content %}
 
-{% set bibtex_path = publication::bibpath(page=page) -%}
+{% set bibtex_path = <publication.bibpath page={page}/> -%}
 {% set bibdata = "" -%}
 {% if bibtex_path -%}
 {% set plaintex = load_data(path=bibtex_path, required=false, format="plain") -%}
@@ -19,14 +19,14 @@
 
 <div class="container max-w-3xl mx-auto px-4">
   <div class="pt-8 flex-col mb-8">
-    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{publication::title(page=page, bibtags=bibdata)}}</h1>
+    <h1 class="grow font-bold font-sans break-normal text-gray-900 text-3xl">{{<publication.title page={page} bibtags={bibdata}/>}}</h1>
     <div class="grow">
-      <p class="text-sm text-slate-400">{{publication::authors(page=page, bibtags=bibdata)}}</p>
+      <p class="text-sm text-slate-400">{{<publication.authors page={page} bibtags={bibdata}/>}}</p>
     </div>
     <div class="grow">
-      <p class="text-sm text-slate-400">{{publication::details(page=page, bibtags=bibdata)}}</p>
+      <p class="text-sm text-slate-400">{{<publication.details page={page} bibtags={bibdata} lang={lang}/>}}</p>
     </div>
-    <div class="grow pt-2"> 
+    <div class="grow pt-2">
       {% if page.extra.url_pdf %}
       <a class="rounded-md border-solid border border-blue-600 inline-flex items-center text-blue-600 justify-center px-2 py-1 mr-2 text-xs font-bold" target="_blank" href="{{ page.extra.url_pdf }}"> pdf </a>
       {% elif page.extra.pdf %}
@@ -51,7 +51,7 @@
     {{ page.description | markdown(inline=true) | safe }}
   </article>
   {% endif -%}
-  {% set abstract = publication::abstract(page=page, bibtags=bibdata) -%}
+  {% set abstract = <publication.abstract page={page} bibtags={bibdata}/> -%}
   {% if abstract -%}
   <p class="font-bold">{{trans(key="Abstract", lang=lang)}}</p>
   <article class="prose prose-indigo max-w-3xl pb-4">{{abstract | safe}}</article>
