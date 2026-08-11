@@ -3,7 +3,7 @@ description = "Theme insipired by wowchemy academic."
 license = "MIT"
 homepage = "https://github.com/adfaure/kodama-theme"
 # The minimum version of Zola required
-min_version = "0.15"
+min_version = "0.23"
 
 # An optional live demo URL
 demo = "https://adfaure.github.io/kodama-theme/"
