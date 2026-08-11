@@ -242,5 +242,7 @@ url_slides = "path_to_slides"
 
 ## Icons
 
-The icons available in this project are stored in a dedicated macro function in `templates/macros/icons.html`.
-To add a new svg, you can add a case in the `if elif .. else` of the function containing the svg copied from [heroicons](https://heroicons.com/) for instance.
+The icons available in this project are stored in a dedicated component in `templates/macros/icons.html`.
+To add a new SVG, you must implement a component called `icons.extras` with a similar structure, that acts as a fallback.
+Additional SVGs can be copied from [heroicons](https://heroicons.com/), for instance.
+

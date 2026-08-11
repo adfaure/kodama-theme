@@ -16,7 +16,7 @@
   <p class="pb-4 text-gray-600"> <span class="font-bold">TLDR.</span> {{ page.extra.tldr | safe }} </p>
   {% endif -%}
   <article class="prose prose-indigo max-w-3xl">
-    {{ macros::toc() }}
+    {{<macros.toc page={page} lang={lang}/>}}
     {{ page.content | safe }}
     {% if page.extra.external_link %}<p><a href="{{page.extra.external_link | safe}}" target="_blank">{{page.extra.external_link | safe}}</a></p>{% endif -%}
   </article>

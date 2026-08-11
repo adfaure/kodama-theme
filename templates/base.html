@@ -1,10 +1,3 @@
-{% import 'macros/head.html' as macros_head -%}
-{% import 'macros/nav.html' as macros_nav -%}
-{% import 'macros/macros.html' as macros -%}
-{% import 'macros/icons.html' as icons -%}
-{% import 'macros/blog.html' as blog -%}
-{% import 'macros/publication.html' as publication -%}
-
 <!DOCTYPE html>
 <html lang="{{ lang | default(value=config.default_language)}}">
 
@@ -25,11 +18,10 @@
 
   {% block head -%}
     {% block css -%}
-      {{ macros_head::stylesheet() }}
+      {{<head.stylesheet/>}}
     {% endblock css -%}
 
     {% block title -%}
-      {% set section = load_data(path=current_path ~ "_index.md", metadata_only=true, required = false)  -%}
     {% endblock title -%}
   {% endblock head -%}
 </head>
@@ -37,7 +29,7 @@
 <body class="bg-white">
   <!-- Top nav bar -->
   {% block nav -%}
-    {{ macros_nav::nav(website_title=config.title) }}
+  {{<nav.navigation config={config} section={section | default(value=none)} page={page | default(value=none)} current_path={current_path | default(value=none)} lang={lang} website_title={config.title}/>}}
   {% endblock nav -%}
   <!-- Container -->
   {% block content -%}
